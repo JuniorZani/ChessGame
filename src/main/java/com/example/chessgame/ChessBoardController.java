@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +13,11 @@ public class ChessBoardController {
     @FXML
     GridPane board =  new GridPane();
 
-    Button [][] newButton =  new Button[8][8];
+
+
+    @FXML
+    ImageView [][] sprite = new ImageView[8][8];
+
 
     public void initialize(){
         createBoard();
@@ -20,17 +26,33 @@ public class ChessBoardController {
     public void createBoard(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                newButton[i][j] = new Button();
+                Button newButton = new Button();
+                sprite[i][j] = new ImageView();
+                sprite[i][j].setFitWidth(64);
+                sprite[i][j].setFitHeight(64);
+                newButton.setGraphic(sprite[i][j]);
+
                 if((i + j)%2 == 0){
-                    newButton[i][j].setStyle("-fx-background-color: #779556;");
-                    newButton[i][j].setPrefSize(112.5, 112.5);
+                    newButton.setStyle("-fx-background-color: #779556;");
+                    newButton.setPrefSize(100, 100);
                 }else {
-                    newButton[i][j].setStyle("-fx-background-color: #EBECD0;");
-                    newButton[i][j].setPrefSize(112.5, 112.5);
+                    newButton.setStyle("-fx-background-color: #EBECD0;");
+                    newButton.setPrefSize(100, 100);
                 }
-                board.add( newButton[i][j], i, j);
+                board.add(newButton, i, j);
             }
         }
+        setSprites();
+    }
+
+    public void setSprites(){
+        Image asset = new Image("com/example/chessgame/Images/blackKing.png");
+        Image asset2 = new Image("com/example/chessgame/Images/icons8-pawn-50.png");
+        Image asset3 = new Image("com/example/chessgame/Images/rook.png");
+        sprite[0][0].setImage(asset);
+        sprite[7][0].setImage(asset2);
+        sprite[4][0].setImage(asset3);
+
     }
 
 }
