@@ -9,8 +9,7 @@ public abstract class Piece {
         return color;
     }
 
-    public void setColor(String color) {
+    public Piece(String color) {
         this.color = color;
     }
-
 }
