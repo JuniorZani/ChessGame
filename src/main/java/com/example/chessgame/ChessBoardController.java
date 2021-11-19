@@ -17,7 +17,10 @@ public class ChessBoardController {
 
     Button [][] buttonMatrix = new Button[8][8];
 
-    Tile [][] tileMatrix = new Tile[8][8];
+    boolean clickStatus = false;
+    Piece clickedPiece;
+
+    public static Tile [][] tileMatrix = new Tile[8][8];
 
     public void initialize(){
         createBoard();
@@ -27,7 +30,7 @@ public class ChessBoardController {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 buttonMatrix[i][j] = new Button();
-                buttonMatrix[i][j].setOnAction(this::gridSensibility);
+                buttonMatrix[i][j].setOnAction(this::click);
                 tileMatrix[i][j] = new Tile();
 
                 if((i + j) % 2 == 0)
@@ -49,52 +52,52 @@ public class ChessBoardController {
                 if(i == 0){
                     if( j == 0 || j == 7) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackRook.png");
-                        tileMatrix[i][j].setPieceOnTile(new Rook("Black"));
+                        tileMatrix[i][j].setPieceOnTile(new Rook(ColorType.BLACK, i, j));
                     }
                     if( j == 1 || j == 6) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKnight.png");
-                        tileMatrix[i][j].setPieceOnTile(new Knight("Black"));
+                        tileMatrix[i][j].setPieceOnTile(new Knight(ColorType.BLACK, i, j));
                     }
                     if(j == 2 || j == 5) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackBishop.png");
-                        tileMatrix[i][j].setPieceOnTile(new Bishop("Black"));
+                        tileMatrix[i][j].setPieceOnTile(new Bishop(ColorType.BLACK, i, j));
                     }
                     if(j == 3){
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackQueen.png");
-                        tileMatrix[i][j++].setPieceOnTile(new Queen("Black"));
+                        tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.BLACK, i, j));
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKing.png");
-                        tileMatrix[i][j].setPieceOnTile(new King("Black"));
+                        tileMatrix[i][j].setPieceOnTile(new King(ColorType.BLACK, i, j));
                     }
                 }
                 if(i == 1) {
                     setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackPawn.png");
-                    tileMatrix[i][j].setPieceOnTile(new Pawn("Black"));
+                    tileMatrix[i][j].setPieceOnTile(new Pawn(ColorType.BLACK, i, j));
                 }
 
 
                 //WhitePieces
                 if(i == 6) {
                     setImages(buttonMatrix[i][j], "com/example/chessgame/images/whitePawn.png");
-                    tileMatrix[i][j].setPieceOnTile(new Pawn("White"));
+                    tileMatrix[i][j].setPieceOnTile(new Pawn(ColorType.WHITE, i, j));
                 }
                 if(i == 7){
                     if(j == 0 || j == 7) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteRook.png");
-                        tileMatrix[i][j].setPieceOnTile(new Rook("White"));
+                        tileMatrix[i][j].setPieceOnTile(new Rook(ColorType.WHITE, i, j));
                     }
                     if(j == 1 || j == 6) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKnight.png");
-                        tileMatrix[i][j].setPieceOnTile(new Knight("White"));
+                        tileMatrix[i][j].setPieceOnTile(new Knight(ColorType.WHITE, i, j));
                     }
                     if(j == 2 || j == 5) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteBishop.png");
-                        tileMatrix[i][j].setPieceOnTile(new Bishop("White"));
+                        tileMatrix[i][j].setPieceOnTile(new Bishop(ColorType.WHITE, i, j));
                     }
                     if(j == 3) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteQueen.png");
-                        tileMatrix[i][j++].setPieceOnTile(new Queen("White"));
+                        tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.WHITE, i, j));
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKing.png");
-                        tileMatrix[i][j].setPieceOnTile(new King("White"));
+                        tileMatrix[i][j].setPieceOnTile(new King(ColorType.WHITE, i, j));
                     }
                 }
             }
@@ -116,6 +119,21 @@ public class ChessBoardController {
         int column = GridPane.getColumnIndex(clickedNode);
 
         System.out.println("Row: " + row + " Column: " + column);
-        System.out.println("Piece on tile: " + tileMatrix[row][column].getPieceOnTile() + "\nPiece Color: " + tileMatrix[row][column].getPieceOnTile().getColor());
+        System.out.println("Piece on tile: " + tileMatrix[row][column].getPieceOnTile() + "\nPiece ColorType: " + tileMatrix[row][column].getPieceOnTile().getColor());
+    }
+
+    public void click(ActionEvent actionEvent){
+        Button clickedButton = (Button) actionEvent.getTarget();
+        int row = GridPane.getRowIndex(clickedButton);
+        int column = GridPane.getColumnIndex(clickedButton);
+
+        if(!clickStatus) {
+            clickedPiece = tileMatrix[row][column].getPieceOnTile();
+        }else{
+            if(clickedPiece != null && clickedPiece.canMove(row, column)){
+                System.out.println("MiniFlinnOut");
+            }
+        }
+        clickStatus = !clickStatus;
     }
 }

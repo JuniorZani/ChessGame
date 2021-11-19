@@ -12,5 +12,9 @@ public class Tile{
     public void setPieceOnTile(Piece pieceOnTile) {
         this.pieceOnTile = pieceOnTile;
     }
+
+    public boolean isTileEmpty(){
+        return(getPieceOnTile() == null);
+    }
 }
 
