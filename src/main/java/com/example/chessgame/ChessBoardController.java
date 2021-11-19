@@ -35,7 +35,7 @@ public class ChessBoardController {
                 else
                     buttonMatrix[i][j].setStyle("-fx-background-color: #B7C0D8;");
 
-                buttonMatrix[i][j].setPrefSize(100, 100);
+                buttonMatrix[i][j].setPrefSize(75, 75);
                 board.add(buttonMatrix[i][j], j, i);
             }
         }
@@ -104,8 +104,8 @@ public class ChessBoardController {
     public void setImages(Button newButton, String Url){
         ImageView newImageView = new ImageView();
         newImageView.setImage(new Image(Url));
-        newImageView.setFitHeight(80);
-        newImageView.setFitWidth(80);
+        newImageView.setFitHeight(60);
+        newImageView.setFitWidth(60);
         newButton.setGraphic(newImageView);
     }
 
