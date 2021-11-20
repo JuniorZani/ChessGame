@@ -10,6 +10,6 @@ public class Pawn extends Piece{
 
     @Override
     public boolean canMove(int targetRow, int targetColumn) {
-        return false;
+        return true;
     }
 }

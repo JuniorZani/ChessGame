@@ -18,7 +18,7 @@ public class ChessBoardController {
     Button [][] buttonMatrix = new Button[8][8];
 
     boolean clickStatus = false;
-    Piece clickedPiece;
+    Tile sourceTile, destinationTile;
 
     public static Tile [][] tileMatrix = new Tile[8][8];
 
@@ -31,7 +31,7 @@ public class ChessBoardController {
             for(int j = 0; j < 8; j++){
                 buttonMatrix[i][j] = new Button();
                 buttonMatrix[i][j].setOnAction(this::click);
-                tileMatrix[i][j] = new Tile();
+                tileMatrix[i][j] = new Tile(null);
 
                 if((i + j) % 2 == 0)
                     buttonMatrix[i][j].setStyle("-fx-background-color: #E8EDF9;");
@@ -127,13 +127,34 @@ public class ChessBoardController {
         int row = GridPane.getRowIndex(clickedButton);
         int column = GridPane.getColumnIndex(clickedButton);
 
-        if(!clickStatus) {
-            clickedPiece = tileMatrix[row][column].getPieceOnTile();
+        if(!clickStatus){
+            sourceTile = tileMatrix[row][column];
+            if(sourceTile.getPieceOnTile() == null)
+                return;
+            System.out.println("First Click");
         }else{
-            if(clickedPiece != null && clickedPiece.canMove(row, column)){
-                System.out.println("MiniFlinnOut");
+            if(sourceTile.getPieceOnTile() != null && sourceTile.getPieceOnTile().canMove(row, column)) {
+                destinationTile = tileMatrix[row][column];
+                tradePositions();
+                System.out.println("Second Click");
             }
         }
         clickStatus = !clickStatus;
+    }
+
+    public void tradePositions() {
+        int destinationRow = destinationTile.getPieceOnTile().getCoordinate().getRow();
+        int destinationColumn = destinationTile.getPieceOnTile().getCoordinate().getColumn();
+        int sourceRow = sourceTile.getPieceOnTile().getCoordinate().getRow();
+        int sourceColumn = sourceTile.getPieceOnTile().getCoordinate().getColumn();
+
+//        tileMatrix[destinationRow][destinationColumn] = sourceTile;
+//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(destinationRow);
+//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(destinationColumn);
+//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(sourceRow);
+//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(sourceColumn);
+//
+//        tileMatrix[sourceRow][sourceColumn] = new Tile(null);
+//        buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
     }
 }

@@ -3,7 +3,7 @@ package com.example.chessgame;
 import com.example.chessgame.Pieces.Piece;
 
 public class Tile{
-    private Piece pieceOnTile = null;
+    private Piece pieceOnTile;
 
     public Piece getPieceOnTile() {
         return pieceOnTile;
@@ -15,6 +15,10 @@ public class Tile{
 
     public boolean isTileEmpty(){
         return(getPieceOnTile() == null);
+    }
+
+    public Tile(Piece pieceOnTile) {
+        this.pieceOnTile = pieceOnTile;
     }
 }
 

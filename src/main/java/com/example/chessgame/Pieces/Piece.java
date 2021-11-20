@@ -1,35 +1,27 @@
 package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
+import com.example.chessgame.Coordinates;
 
 public abstract class Piece {
     private final ColorType color;
-    private int row, column;
+    private Coordinates coordinate;
 
     public ColorType getColor() {
         return color;
     }
 
-    public int getRow() {
-        return row;
+    public Coordinates getCoordinate() {
+        return coordinate;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
+    public void setCoordinate(Coordinates coordinate) {
+        this.coordinate = coordinate;
     }
 
     public Piece(ColorType color, int row, int column) {
         this.color = color;
-        this.row = row;
-        this.column = column;
+        coordinate = new Coordinates(row, column);
     }
 
     public abstract boolean canMove(int targetRow, int targetColumn);
