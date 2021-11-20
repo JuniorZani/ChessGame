@@ -17,6 +17,12 @@ public class Tile{
         return(getPieceOnTile() == null);
     }
 
+    public Tile(Piece pieceOnTile, int row, int column) {
+        this.pieceOnTile = pieceOnTile;
+        this.pieceOnTile.getCoordinate().setRow(row);
+        this.pieceOnTile.getCoordinate().setColumn(column);
+    }
+
     public Tile(Piece pieceOnTile) {
         this.pieceOnTile = pieceOnTile;
     }

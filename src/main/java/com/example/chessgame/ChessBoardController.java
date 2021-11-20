@@ -18,8 +18,8 @@ public class ChessBoardController {
     Button [][] buttonMatrix = new Button[8][8];
 
     boolean clickStatus = false;
-    Tile sourceTile, destinationTile;
-
+    int sourceRow, sourceColumn;
+    int destinationRow, destinationColumn;
     public static Tile [][] tileMatrix = new Tile[8][8];
 
     public void initialize(){
@@ -74,7 +74,6 @@ public class ChessBoardController {
                     tileMatrix[i][j].setPieceOnTile(new Pawn(ColorType.BLACK, i, j));
                 }
 
-
                 //WhitePieces
                 if(i == 6) {
                     setImages(buttonMatrix[i][j], "com/example/chessgame/images/whitePawn.png");
@@ -104,12 +103,12 @@ public class ChessBoardController {
         }
     }
 
-    public void setImages(Button newButton, String Url){
+    public void setImages(Button selectedButton, String Url){
         ImageView newImageView = new ImageView();
         newImageView.setImage(new Image(Url));
         newImageView.setFitHeight(60);
         newImageView.setFitWidth(60);
-        newButton.setGraphic(newImageView);
+        selectedButton.setGraphic(newImageView);
     }
 
     public void gridSensibility(ActionEvent actionEvent){
@@ -128,33 +127,33 @@ public class ChessBoardController {
         int column = GridPane.getColumnIndex(clickedButton);
 
         if(!clickStatus){
-            sourceTile = tileMatrix[row][column];
-            if(sourceTile.getPieceOnTile() == null)
+            sourceRow = row;
+            sourceColumn = column;
+            if(tileMatrix[row][column].getPieceOnTile() == null)
                 return;
+            buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
             System.out.println("First Click");
         }else{
-            if(sourceTile.getPieceOnTile() != null && sourceTile.getPieceOnTile().canMove(row, column)) {
-                destinationTile = tileMatrix[row][column];
+            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column)) {
+                destinationRow = row;
+                destinationColumn = column;
                 tradePositions();
                 System.out.println("Second Click");
+                if((sourceRow + sourceColumn) % 2 == 0)
+                    buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #E8EDF9;");
+                else
+                    buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #B7C0D8;");
             }
         }
         clickStatus = !clickStatus;
     }
 
     public void tradePositions() {
-        int destinationRow = destinationTile.getPieceOnTile().getCoordinate().getRow();
-        int destinationColumn = destinationTile.getPieceOnTile().getCoordinate().getColumn();
-        int sourceRow = sourceTile.getPieceOnTile().getCoordinate().getRow();
-        int sourceColumn = sourceTile.getPieceOnTile().getCoordinate().getColumn();
+        tileMatrix[destinationRow][destinationColumn].setPieceOnTile(tileMatrix[sourceRow][sourceColumn].getPieceOnTile());
+        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(destinationRow);
+        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(destinationColumn);
+        tileMatrix[sourceRow][sourceColumn] = new Tile(null);
 
-//        tileMatrix[destinationRow][destinationColumn] = sourceTile;
-//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(destinationRow);
-//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(destinationColumn);
-//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(sourceRow);
-//        tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(sourceColumn);
-//
-//        tileMatrix[sourceRow][sourceColumn] = new Tile(null);
-//        buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
+        buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
     }
 }

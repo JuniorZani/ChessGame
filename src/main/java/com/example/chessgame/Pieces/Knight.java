@@ -10,6 +10,6 @@ public class Knight extends Piece{
 
     @Override
     public boolean canMove(int targetRow, int targetColumn) {
-        return false;
+        return true;
     }
 }

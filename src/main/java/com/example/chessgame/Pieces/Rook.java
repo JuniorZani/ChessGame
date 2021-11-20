@@ -13,36 +13,38 @@ public class Rook extends Piece{
 
     @Override
     public boolean canMove(int targetRow, int targetColumn) {
-        int currentRow = getRow();
-        int currentColumn = getColumn();
+        int currentRow = getCoordinate().getRow();
+        int currentColumn = getCoordinate().getColumn();
 
-        if(currentRow == targetRow){
-            if(currentColumn > targetColumn){
-                for(int j = currentColumn - 1; j > targetColumn; j--)
-                    if(!tileMatrix[currentRow][j].isTileEmpty())
+        if (currentRow != targetRow && currentColumn != targetColumn) {
+            return false;
+        }
+        if (currentRow == targetRow) {
+            if (currentColumn > targetColumn) {
+                for (int j = currentColumn - 1; j > targetColumn; j--) {
+                    if (!tileMatrix[currentRow][j].isTileEmpty())
                         return false;
-                return true;
-            }
-            if(currentColumn < targetColumn){
-                for(int j = currentColumn + 1; j < targetColumn; j++)
-                    if(!tileMatrix[currentRow][j].isTileEmpty())
-                        return false;
-                return true;
-            }
-        }else{
-            if(currentColumn == targetColumn){
-                if(currentRow > targetRow){
-                    for(int i = currentRow - 1; i > targetRow; i--)
-                        if(!tileMatrix[i][currentColumn].isTileEmpty())
-                            return false;
-                    return true;
                 }
-                for (int i = currentRow + 1; i < targetRow; i++)
-                    if(!tileMatrix[i][currentColumn].isTileEmpty())
+            }else {
+                for (int j = currentColumn + 1; j < targetColumn; j++) {
+                    if (!tileMatrix[currentRow][j].isTileEmpty())
                         return false;
-                return true;
+                }
+            }
+        } else {
+            if (currentRow > targetRow) {
+                for (int i = currentRow - 1; i > targetRow; i--) {
+                    if (!tileMatrix[i][currentColumn].isTileEmpty())
+                        return false;
+                }
+            }else {
+                for (int i = currentRow + 1; i < targetRow; i++) {
+                    if (!tileMatrix[i][currentColumn].isTileEmpty())
+                        return false;
+                }
             }
         }
-        return false;
+        return true;
     }
+
 }
