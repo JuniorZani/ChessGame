@@ -10,6 +10,10 @@ public class Knight extends Piece{
 
     @Override
     public boolean canMove(int targetRow, int targetColumn) {
-        return true;
+        int currentRow = getCoordinate().getRow();
+        int currentColumn = getCoordinate().getColumn();
+
+        return (Math.abs(targetRow - currentRow) == 1 && Math.abs(targetColumn - currentColumn) == 2) ||
+                (Math.abs(targetRow - currentRow) == 2 && Math.abs(targetColumn - currentColumn) == 1);
     }
 }

@@ -19,6 +19,7 @@ public class Rook extends Piece{
         if (currentRow != targetRow && currentColumn != targetColumn) {
             return false;
         }
+
         if (currentRow == targetRow) {
             if (currentColumn > targetColumn) {
                 for (int j = currentColumn - 1; j > targetColumn; j--) {

@@ -10,6 +10,12 @@ public class Queen extends Piece{
 
     @Override
     public boolean canMove(int targetRow, int targetColumn) {
-        return true;
+        int currentRow = getCoordinate().getRow();
+        int currentColumn = getCoordinate().getColumn();
+
+        Piece rook = new Rook(this.getColor(), currentRow, currentColumn);
+        Piece bishop = new Bishop(this.getColor(), currentRow, currentColumn);
+
+        return (rook.canMove(targetRow, targetColumn) || bishop.canMove(targetRow, targetColumn));
     }
 }
