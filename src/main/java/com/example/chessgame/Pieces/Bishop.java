@@ -14,6 +14,7 @@ public class Bishop extends Piece {
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
+        //Diagonal movement verification
         if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn))) {
             return false;
         }
@@ -37,22 +38,22 @@ public class Bishop extends Piece {
                 }
             }
         }else
-                //i++ and j--
-                if (currentColumn > targetColumn) {
-                    for (int i = currentRow + 1; i < targetRow; i++) {
-                        for (int j = currentColumn - 1; j > targetColumn; j--) {
-                            if (!tileMatrix[i][j].isTileEmpty())
-                                return false;
-                        }
+            //i++ and j--
+            if (currentColumn > targetColumn) {
+                for (int i = currentRow + 1; i < targetRow; i++) {
+                    for (int j = currentColumn - 1; j > targetColumn; j--) {
+                        if (!tileMatrix[i][j].isTileEmpty())
+                            return false;
                     }
-                } else
-                    //i++ and j++
-                    for (int i = currentRow + 1; i < targetRow; i++) {
-                        for (int j = currentColumn + 1; j < targetColumn; j++) {
-                            if (!tileMatrix[i][j].isTileEmpty())
-                                return false;
-                        }
+                }
+            } else
+                //i++ and j++
+                for (int i = currentRow + 1; i < targetRow; i++) {
+                    for (int j = currentColumn + 1; j < targetColumn; j++) {
+                        if (!tileMatrix[i][j].isTileEmpty())
+                            return false;
                     }
+                }
         return true;
         }
     }

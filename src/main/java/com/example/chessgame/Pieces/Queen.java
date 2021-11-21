@@ -2,6 +2,8 @@ package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
 
+import static com.example.chessgame.ChessBoardController.tileMatrix;
+
 public class Queen extends Piece{
 
     public Queen(ColorType color, int row, int column) {
@@ -13,9 +15,76 @@ public class Queen extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
-        Piece rook = new Rook(this.getColor(), currentRow, currentColumn);
-        Piece bishop = new Bishop(this.getColor(), currentRow, currentColumn);
-
-        return (rook.canMove(targetRow, targetColumn) || bishop.canMove(targetRow, targetColumn));
+        //Rook movement verification
+        if ((currentRow != targetRow && currentColumn != targetColumn)) {
+            //Bishop movement verification
+            if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn))){
+                return false;
+            }
+            //i-- and j--
+            if (currentRow > targetRow) {
+                if (currentColumn > targetColumn) {
+                    for (int i = currentRow - 1; i > targetRow; i--) {
+                        for (int j = currentColumn - 1; j > targetColumn; j--) {
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                        }
+                    }
+                }
+                //i-- and j++
+                if (currentColumn < targetColumn) {
+                    for (int i = currentRow - 1; i > targetRow; i--) {
+                        for (int j = currentColumn + 1; j < targetColumn; j++) {
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                        }
+                    }
+                }
+            }else
+                //i++ and j--
+                if (currentColumn > targetColumn) {
+                    for (int i = currentRow + 1; i < targetRow; i++) {
+                        for (int j = currentColumn - 1; j > targetColumn; j--) {
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                        }
+                    }
+                } else
+                    //i++ and j++
+                    for (int i = currentRow + 1; i < targetRow; i++) {
+                        for (int j = currentColumn + 1; j < targetColumn; j++) {
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                        }
+                    }
+            return true;
+        }else{
+            if (currentRow == targetRow) {
+                if (currentColumn > targetColumn) {
+                    for (int j = currentColumn - 1; j > targetColumn; j--) {
+                        if (!tileMatrix[currentRow][j].isTileEmpty())
+                            return false;
+                    }
+                }else {
+                    for (int j = currentColumn + 1; j < targetColumn; j++) {
+                        if (!tileMatrix[currentRow][j].isTileEmpty())
+                            return false;
+                    }
+                }
+            } else {
+                if (currentRow > targetRow) {
+                    for (int i = currentRow - 1; i > targetRow; i--) {
+                        if (!tileMatrix[i][currentColumn].isTileEmpty())
+                            return false;
+                    }
+                }else {
+                    for (int i = currentRow + 1; i < targetRow; i++) {
+                        if (!tileMatrix[i][currentColumn].isTileEmpty())
+                            return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }
