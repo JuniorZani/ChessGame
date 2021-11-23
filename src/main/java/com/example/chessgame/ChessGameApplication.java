@@ -3,6 +3,7 @@ package com.example.chessgame;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,8 +13,11 @@ public class ChessGameApplication extends Application {
     public void start(Stage stage) throws IOException {
         System.setProperty("prism.lcdtext", "false");
         FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource("fxmls/PlayersLogin.fxml"));
+        Image Icon = new Image("com/example/chessgame/Images/blackRook.png");
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+
         stage.setTitle("Chess Game");
+        stage.getIcons().add(Icon);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
