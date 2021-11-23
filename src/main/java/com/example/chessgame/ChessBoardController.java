@@ -51,51 +51,51 @@ public class ChessBoardController {
                 //BlackPieces
                 if(i == 0){
                     if( j == 0 || j == 7) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackRook.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackRook.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Rook(ColorType.BLACK, i, j));
                     }
                     if( j == 1 || j == 6) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKnight.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKnight.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Knight(ColorType.BLACK, i, j));
                     }
                     if(j == 2 || j == 5) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackBishop.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackBishop.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Bishop(ColorType.BLACK, i, j));
                     }
                     if(j == 3){
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackQueen.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackQueen.png", 60);
                         tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.BLACK, i, j));
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKing.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKing.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new King(ColorType.BLACK, i, j));
                     }
                 }
                 if(i == 1) {
-                    setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackPawn.png");
+                    setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackPawn.png", 60);
                     tileMatrix[i][j].setPieceOnTile(new Pawn(ColorType.BLACK, i, j));
                 }
 
                 //WhitePieces
                 if(i == 6) {
-                    setImages(buttonMatrix[i][j], "com/example/chessgame/images/whitePawn.png");
+                    setImages(buttonMatrix[i][j], "com/example/chessgame/images/whitePawn.png", 60);
                     tileMatrix[i][j].setPieceOnTile(new Pawn(ColorType.WHITE, i, j));
                 }
                 if(i == 7){
                     if(j == 0 || j == 7) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteRook.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteRook.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Rook(ColorType.WHITE, i, j));
                     }
                     if(j == 1 || j == 6) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKnight.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKnight.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Knight(ColorType.WHITE, i, j));
                     }
                     if(j == 2 || j == 5) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteBishop.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteBishop.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Bishop(ColorType.WHITE, i, j));
                     }
                     if(j == 3) {
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteQueen.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteQueen.png", 60);
                         tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.WHITE, i, j));
-                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKing.png");
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKing.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new King(ColorType.WHITE, i, j));
                     }
                 }
@@ -103,14 +103,33 @@ public class ChessBoardController {
         }
     }
 
-    public void setImages(Button selectedButton, String Url){
+    public void setImages(Button selectedButton, String Url, int dimensions){
         ImageView newImageView = new ImageView();
         newImageView.setImage(new Image(Url));
-        newImageView.setFitHeight(60);
-        newImageView.setFitWidth(60);
+        newImageView.setFitHeight(dimensions);
+        newImageView.setFitWidth(dimensions);
         selectedButton.setGraphic(newImageView);
     }
 
+    public void showPossibleMoves(boolean clickStatus){
+
+        if(!clickStatus){
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    if(tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(i, j))
+                        setImages(buttonMatrix[i][j], "com/example/chessgame/images/Overlay.png", 16);
+                }
+            }
+        }else{
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j < 8; j++){
+                    if(tileMatrix[i][j].isTileEmpty())
+                        buttonMatrix[i][j].setGraphic(null);
+                }
+            }
+        }
+
+    }
 
     public void click(ActionEvent actionEvent){
         Button clickedButton = (Button) actionEvent.getTarget();
@@ -123,6 +142,7 @@ public class ChessBoardController {
             sourceRow = row;
             sourceColumn = column;
             buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
+            showPossibleMoves(clickStatus);
             System.out.println("First Click");
 
         }else{
@@ -132,6 +152,9 @@ public class ChessBoardController {
                 tradePositions();
                 System.out.println("Second Click");
             }
+            showPossibleMoves(clickStatus);
+
+
             if((sourceRow + sourceColumn) % 2 == 0)
                 buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #E8EDF9;");
             else
