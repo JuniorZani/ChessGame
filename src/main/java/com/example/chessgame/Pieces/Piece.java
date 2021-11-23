@@ -25,4 +25,5 @@ public abstract class Piece {
     }
 
     public abstract boolean canMove(int targetRow, int targetColumn);
+    public abstract boolean canEat(int targetRow, int targetColumn);
 }

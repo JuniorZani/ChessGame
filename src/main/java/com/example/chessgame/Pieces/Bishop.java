@@ -56,4 +56,13 @@ public class Bishop extends Piece {
                 }
         return true;
         }
+
+    @Override
+    public boolean canEat(int targetRow, int targetColumn) {
+        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
+            return true;
+        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
     }
+
+
+}

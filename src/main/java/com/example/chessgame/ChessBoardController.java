@@ -26,18 +26,20 @@ public class ChessBoardController {
         createBoard();
     }
 
+    public void setButtonColor(int row, int column){
+        if((row + column) % 2 == 0)
+            buttonMatrix[row][column].setStyle("-fx-background-color: #E8EDF9;");
+        else
+            buttonMatrix[row][column].setStyle("-fx-background-color: #B7C0D8;");
+    }
+
     public void createBoard(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 buttonMatrix[i][j] = new Button();
                 buttonMatrix[i][j].setOnAction(this::click);
                 tileMatrix[i][j] = new Tile(null);
-
-                if((i + j) % 2 == 0)
-                    buttonMatrix[i][j].setStyle("-fx-background-color: #E8EDF9;");
-                else
-                    buttonMatrix[i][j].setStyle("-fx-background-color: #B7C0D8;");
-
+                setButtonColor(i, j);
                 buttonMatrix[i][j].setPrefSize(75, 75);
                 board.add(buttonMatrix[i][j], j, i);
             }
@@ -112,17 +114,22 @@ public class ChessBoardController {
     }
 
     public void showPossibleMoves(boolean clickStatus){
-
         if(!clickStatus){
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j < 8; j++){
-                    if(tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(i, j))
+                    if(tileMatrix[i][j].isTileEmpty() && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(i, j)){
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/Overlay.png", 16);
+                    }else{
+                        if(tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(i, j) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(i, j)){
+                            buttonMatrix[i][j].setStyle("-fx-background-color: #E49E9E;");
+                        }
+                    }
                 }
             }
         }else{
             for(int i = 0; i < 8; i++){
                 for(int j = 0; j < 8; j++){
+                    setButtonColor(i,j);
                     if(tileMatrix[i][j].isTileEmpty())
                         buttonMatrix[i][j].setGraphic(null);
                 }
@@ -143,22 +150,15 @@ public class ChessBoardController {
             sourceColumn = column;
             buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
             showPossibleMoves(clickStatus);
-            System.out.println("First Click");
 
         }else{
-            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column)) {
+            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column)  && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
                 destinationRow = row;
                 destinationColumn = column;
                 tradePositions();
-                System.out.println("Second Click");
             }
             showPossibleMoves(clickStatus);
-
-
-            if((sourceRow + sourceColumn) % 2 == 0)
-                buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #E8EDF9;");
-            else
-                buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #B7C0D8;");
+            setButtonColor(sourceRow, sourceColumn);
         }
         clickStatus = !clickStatus;
     }

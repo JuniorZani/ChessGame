@@ -23,4 +23,11 @@ public class King extends Piece{
         }else
             return tileMatrix[targetRow][targetColumn].isTileEmpty();
     }
+
+    @Override
+    public boolean canEat(int targetRow, int targetColumn) {
+        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
+            return true;
+        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
+    }
 }

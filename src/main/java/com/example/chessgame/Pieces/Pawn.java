@@ -37,4 +37,11 @@ public class Pawn extends Piece{
         }
         return false;
     }
+
+    @Override
+    public boolean canEat(int targetRow, int targetColumn) {
+        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
+            return true;
+        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
+    }
 }
