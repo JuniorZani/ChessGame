@@ -1,12 +1,11 @@
 package com.example.chessgame;
 
 import com.example.chessgame.Pieces.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 
@@ -37,7 +36,8 @@ public class ChessBoardController {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 buttonMatrix[i][j] = new Button();
-                buttonMatrix[i][j].setOnAction(this::click);
+                //buttonMatrix[i][j].setOnAction(this::click);
+                buttonMatrix[i][j].setOnMouseClicked(this::click);
                 tileMatrix[i][j] = new Tile(null);
                 setButtonColor(i, j);
                 buttonMatrix[i][j].setPrefSize(75, 75);
@@ -138,7 +138,7 @@ public class ChessBoardController {
 
     }
 
-    public void click(ActionEvent actionEvent){
+    public void click(MouseEvent actionEvent){
         Button clickedButton = (Button) actionEvent.getTarget();
         int row = GridPane.getRowIndex(clickedButton);
         int column = GridPane.getColumnIndex(clickedButton);
