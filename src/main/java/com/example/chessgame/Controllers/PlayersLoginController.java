@@ -17,6 +17,6 @@ public class PlayersLoginController {
 
     public void goToMenu(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        ChessGameApplication.changeScene(stage,"fxmls/ChessBoard.fxml",600,600);
+        ChessGameApplication.changeScene(stage,"fxmls/ChessBoard.fxml",950,750);
     }
 }
