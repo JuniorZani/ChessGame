@@ -64,9 +64,11 @@ public class ChessBoardController {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackBishop.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new Bishop(ColorType.BLACK, i, j));
                     }
-                    if(j == 3){
+                    if(j == 3) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackQueen.png", 60);
-                        tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.BLACK, i, j));
+                        tileMatrix[i][j].setPieceOnTile(new Queen(ColorType.BLACK, i, j));
+                    }
+                    if(j == 4){
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/blackKing.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new King(ColorType.BLACK, i, j));
                     }
@@ -96,7 +98,9 @@ public class ChessBoardController {
                     }
                     if(j == 3) {
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteQueen.png", 60);
-                        tileMatrix[i][j++].setPieceOnTile(new Queen(ColorType.WHITE, i, j));
+                        tileMatrix[i][j].setPieceOnTile(new Queen(ColorType.WHITE, i, j));
+                    }
+                    if(j == 4){
                         setImages(buttonMatrix[i][j], "com/example/chessgame/images/whiteKing.png", 60);
                         tileMatrix[i][j].setPieceOnTile(new King(ColorType.WHITE, i, j));
                     }

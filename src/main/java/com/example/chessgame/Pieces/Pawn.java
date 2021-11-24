@@ -45,6 +45,22 @@ public class Pawn extends Piece{
                 }
                 return (targetRow - currentRow > 0 && targetRow - currentRow <= movementValue);
             }
+        }else{
+            if (this.getColor() == ColorType.WHITE) {
+                if (currentRow == targetRow + 1 && !tileMatrix[targetRow][targetColumn].isTileEmpty()) {
+                    if (currentColumn - 1 == targetColumn)
+                        return this.canEat(targetRow, targetColumn);
+                    else if (currentColumn + 1 == targetColumn)
+                        return this.canEat(targetRow, targetColumn);
+                }
+            }else{
+                if (currentRow == targetRow - 1 && !tileMatrix[targetRow][targetColumn].isTileEmpty()) {
+                    if (currentColumn - 1 == targetColumn)
+                        return this.canEat(targetRow, targetColumn);
+                    else if (currentColumn + 1 == targetColumn)
+                        return this.canEat(targetRow, targetColumn);
+                }
+            }
         }
         return false;
     }
