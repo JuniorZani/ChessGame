@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" styleClass="background" stylesheets="@styles/PlayersLogin.css"
+            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.chessgame.Controllers.PlayersLoginController">
+    <ImageView fitHeight="224.0" fitWidth="237.0" layoutX="193.0" layoutY="76.0" pickOnBounds="true"
+               preserveRatio="true" styleClass="horse">
+        <Image url="@../Images/bgKnight.png"/>
+    </ImageView>
+    <Label layoutX="133.0" layoutY="33.0" styleClass="title" text="Chess Game">
+        <font>
+            <Font size="16.0"/>
+        </font>
+    </Label>
+    <Label layoutX="123.0" layoutY="60.0" styleClass="subtitle" text="Insira o nome dos jogadores"/>
+    <HBox alignment="CENTER" layoutX="98.0" layoutY="102.0" prefHeight="110.0" prefWidth="201.0">
+        <VBox alignment="TOP_CENTER" prefHeight="110.0" prefWidth="52.0">
+            <ImageView fitHeight="55.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../Images/blackPawn.png"/>
+            </ImageView>
+            <ImageView fitHeight="53.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../Images/whitePawn.png"/>
+            </ImageView>
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="110.0" prefWidth="148.0" spacing="8.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="1.0">
+                <Label text="Jogador 1">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+                <TextField/>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="1.0">
+                <Label text="Jogador 2">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+                <TextField/>
+            </VBox>
+        </VBox>
+    </HBox>
+    <Button fx:id="OK" layoutX="184.0" layoutY="238.0" mnemonicParsing="false" text="OK" onAction="#goToMenu">
+        <font>
+            <Font name="System Bold" size="12.0"/>
+        </font>
+    </Button>
+</AnchorPane>

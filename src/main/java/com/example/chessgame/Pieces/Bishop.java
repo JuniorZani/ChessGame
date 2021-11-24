@@ -13,49 +13,71 @@ public class Bishop extends Piece {
     public boolean canMove(int targetRow, int targetColumn) {
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
-
+        int j;
         //Diagonal movement verification
         if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn))) {
             return false;
         }
-        //i-- and j--
+        //top diagonals
         if (currentRow > targetRow) {
+            j = currentColumn;
+            //i-- and j--
             if (currentColumn > targetColumn) {
+                j = j - 1;
                 for (int i = currentRow - 1; i > targetRow; i--) {
-                    for (int j = currentColumn - 1; j > targetColumn; j--) {
+                    if(j < targetColumn)
+                        break;
+                    else
                         if (!tileMatrix[i][j].isTileEmpty())
                             return false;
+                        j--;
+                }
+            } else {
+                //i-- and j++
+                if (currentColumn < targetColumn) {
+                    j = j + 1;
+                    for (int i = currentRow - 1; i > targetRow; i--) {
+                        if(j > targetColumn)
+                            break;
+                        else
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                            j++;
                     }
                 }
             }
-            //i-- and j++
-            if (currentColumn < targetColumn) {
-                for (int i = currentRow - 1; i > targetRow; i--) {
-                    for (int j = currentColumn + 1; j < targetColumn; j++) {
-                        if (!tileMatrix[i][j].isTileEmpty())
-                            return false;
+        } else {
+            //bottom diagonals
+            if (currentRow < targetRow) {
+                j = currentColumn;
+                //i++ and j--
+                if (currentColumn > targetColumn) {
+                    j = j - 1;
+                    for (int i = currentRow + 1; i < targetRow; i++) {
+                        if(j < targetColumn)
+                            break;
+                        else
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                            j--;
+                    }
+                } else {
+                    //i++ and j++
+                    j = j + 1;
+                    for (int i = currentRow + 1; i < targetRow; i++) {
+                        if (j > targetColumn)
+                            break;
+                        else {
+                            if (!tileMatrix[i][j].isTileEmpty())
+                                return false;
+                            j++;
+                        }
                     }
                 }
             }
-        }else
-            //i++ and j--
-            if (currentColumn > targetColumn) {
-                for (int i = currentRow + 1; i < targetRow; i++) {
-                    for (int j = currentColumn - 1; j > targetColumn; j--) {
-                        if (!tileMatrix[i][j].isTileEmpty())
-                            return false;
-                    }
-                }
-            } else
-                //i++ and j++
-                for (int i = currentRow + 1; i < targetRow; i++) {
-                    for (int j = currentColumn + 1; j < targetColumn; j++) {
-                        if (!tileMatrix[i][j].isTileEmpty())
-                            return false;
-                    }
-                }
-        return true;
         }
+        return true;
+    }
 
     @Override
     public boolean canEat(int targetRow, int targetColumn) {
@@ -63,6 +85,4 @@ public class Bishop extends Piece {
             return true;
         return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
     }
-
-
 }

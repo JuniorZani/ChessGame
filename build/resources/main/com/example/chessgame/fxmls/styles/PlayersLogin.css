@@ -1,0 +1,35 @@
+@font-face {
+    src: url('/com/example/chessgame/fonts/Mt-Bold.ttf');
+}
+
+.background{
+    -fx-background-color: #BDC4D2;
+}
+
+.title{
+    -fx-font-family: Montserrat Bold;
+    -fx-font-size: 16pt;
+}
+
+.subtitle{
+    -fx-font-family: Montserrat;
+    -fx-font-size: 8pt;
+    -fx-text-fill: #7891D2;
+}
+
+.button{
+    -fx-background-color: linear-gradient(to bottom, #7891D2, #50669F);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7B61FF, #5341B0);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #FEFEFE, #C5C0DB);
+}
+
+.horse{
+    -fx-opacity: 0.1;
+}
+
