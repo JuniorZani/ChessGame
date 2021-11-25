@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 
-
 public class ChessBoardController {
     @FXML
     GridPane board =  new GridPane();
@@ -17,6 +16,7 @@ public class ChessBoardController {
     Button [][] buttonMatrix = new Button[8][8];
 
     boolean clickStatus = false;
+    ColorType currentColor = ColorType.WHITE;
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
     public static Tile [][] tileMatrix = new Tile[8][8];
@@ -147,8 +147,9 @@ public class ChessBoardController {
         int row = GridPane.getRowIndex(clickedButton);
         int column = GridPane.getColumnIndex(clickedButton);
 
+
         if(!clickStatus){
-            if(tileMatrix[row][column].getPieceOnTile() == null)
+            if(tileMatrix[row][column].getPieceOnTile() == null || tileMatrix[row][column].getPieceOnTile().getColor() != currentColor)
                 return;
             sourceRow = row;
             sourceColumn = column;
@@ -156,7 +157,7 @@ public class ChessBoardController {
             showPossibleMoves(clickStatus);
 
         }else{
-            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column)  && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
+            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
                 destinationRow = row;
                 destinationColumn = column;
                 tradePositions();
@@ -167,6 +168,8 @@ public class ChessBoardController {
         clickStatus = !clickStatus;
     }
 
+
+
     public void tradePositions() {
         tileMatrix[destinationRow][destinationColumn].setPieceOnTile(tileMatrix[sourceRow][sourceColumn].getPieceOnTile());
         tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(destinationRow);
@@ -174,5 +177,10 @@ public class ChessBoardController {
         tileMatrix[sourceRow][sourceColumn] = new Tile(null);
         buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
         buttonMatrix[sourceRow][sourceColumn].setGraphic(null);
+
+        if(currentColor == ColorType.WHITE)
+            currentColor = ColorType.BLACK;
+        else
+            currentColor = ColorType.WHITE;
     }
 }
