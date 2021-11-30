@@ -157,7 +157,7 @@ public class ChessBoardController {
             showPossibleMoves(clickStatus);
 
         }else{
-            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
+            if((sourceRow != row || sourceColumn != column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column) && tileMatrix[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)){
                 destinationRow = row;
                 destinationColumn = column;
                 tradePositions();

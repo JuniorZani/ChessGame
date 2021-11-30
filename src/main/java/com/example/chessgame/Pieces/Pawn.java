@@ -12,7 +12,6 @@ public class Pawn extends Piece{
     public boolean canMove(int targetRow, int targetColumn) {
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
-        int i = 1;
 
         //Movement Verification
         if(currentColumn == targetColumn) {
@@ -43,31 +42,33 @@ public class Pawn extends Piece{
                     }
                 }
             }
-        }else{
-            //Eating Verification
-            if (this.getColor() == ColorType.WHITE) {
-                if (currentRow == targetRow + 1 && !tileMatrix[targetRow][targetColumn].isTileEmpty()) {
-                    if (currentColumn - 1 == targetColumn)
-                        return this.canEat(targetRow, targetColumn);
-                    else if (currentColumn + 1 == targetColumn)
-                        return this.canEat(targetRow, targetColumn);
-                }
-            }else{
-                if (currentRow == targetRow - 1 && !tileMatrix[targetRow][targetColumn].isTileEmpty()) {
-                    if (currentColumn - 1 == targetColumn)
-                        return this.canEat(targetRow, targetColumn);
-                    else if (currentColumn + 1 == targetColumn)
-                        return this.canEat(targetRow, targetColumn);
-                }
-            }
         }
-        return false;
+        else{
+            return this.canEat(targetRow, targetColumn);
+        }
     }
 
     @Override
     public boolean canEat(int targetRow, int targetColumn) {
-        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
-            return true;
-        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
+        int currentRow = getCoordinate().getRow();
+        int currentColumn = getCoordinate().getColumn();
+
+        if (currentColumn != targetColumn) {
+            if (this.getColor() == ColorType.WHITE) {
+                if (currentRow - 1 == targetRow) {
+                    if (!tileMatrix[targetRow][targetColumn].isTileEmpty() && this.getColor() != tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor())
+                        return currentColumn + 1 == targetColumn || currentColumn - 1 == targetColumn;
+                }
+            } else {
+                if (currentRow + 1 == targetRow) {
+                    if (!tileMatrix[targetRow][targetColumn].isTileEmpty() && this.getColor() != tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor())
+                        return currentColumn + 1 == targetColumn || currentColumn - 1 == targetColumn;
+                }
+            }
+
+        }else{
+            return (tileMatrix[targetRow][targetColumn].isTileEmpty());
+        }
+        return false;
     }
 }

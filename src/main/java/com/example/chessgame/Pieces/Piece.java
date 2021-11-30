@@ -3,6 +3,8 @@ package com.example.chessgame.Pieces;
 import com.example.chessgame.ColorType;
 import com.example.chessgame.Coordinates;
 
+import static com.example.chessgame.ChessBoardController.tileMatrix;
+
 public abstract class Piece {
     private final ColorType color;
     private Coordinates coordinate;
@@ -25,5 +27,10 @@ public abstract class Piece {
     }
 
     public abstract boolean canMove(int targetRow, int targetColumn);
-    public abstract boolean canEat(int targetRow, int targetColumn);
+
+    public boolean canEat(int targetRow, int targetColumn) {
+        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
+            return true;
+        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
+    }
 }

@@ -18,11 +18,4 @@ public class Knight extends Piece{
         return (Math.abs(targetRow - currentRow) == 1 && Math.abs(targetColumn - currentColumn) == 2) ||
                 (Math.abs(targetRow - currentRow) == 2 && Math.abs(targetColumn - currentColumn) == 1);
     }
-
-    @Override
-    public boolean canEat(int targetRow, int targetColumn) {
-        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
-            return true;
-        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
-    }
 }
