@@ -149,7 +149,7 @@ public class ChessBoardController {
 
 
         if(!clickStatus){
-            if(tileMatrix[row][column].getPieceOnTile() == null || tileMatrix[row][column].getPieceOnTile().getColor() != currentColor)
+            if(tileMatrix[row][column].getPieceOnTile() == null) //|| tileMatrix[row][column].getPieceOnTile().getColor() != currentColor)
                 return;
             sourceRow = row;
             sourceColumn = column;
@@ -167,8 +167,6 @@ public class ChessBoardController {
         }
         clickStatus = !clickStatus;
     }
-
-
 
     public void tradePositions() {
         tileMatrix[destinationRow][destinationColumn].setPieceOnTile(tileMatrix[sourceRow][sourceColumn].getPieceOnTile());
