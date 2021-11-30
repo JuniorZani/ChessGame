@@ -7,22 +7,33 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+
+import static com.example.chessgame.Controllers.PlayersLoginController.blackPlayer;
+import static com.example.chessgame.Controllers.PlayersLoginController.whitePlayer;
 
 
 public class ChessBoardController {
     @FXML
     GridPane board =  new GridPane();
+    @FXML
+    Text currentPlayerName;
+    @FXML
+    ImageView currentPlayerPiece;
 
     Button [][] buttonMatrix = new Button[8][8];
-
+    public static Tile [][] tileMatrix = new Tile[8][8];
+    Player currentPlayer = whitePlayer;
+    Image blackPawn = new Image("com/example/chessgame/images/blackPawn.png"), whitePawn = new Image("com/example/chessgame/images/whitePawn.png");
     boolean clickStatus = false;
-    ColorType currentColor = ColorType.WHITE;
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
-    public static Tile [][] tileMatrix = new Tile[8][8];
+
 
     public void initialize(){
         createBoard();
+        currentPlayerName.setText(currentPlayer.getName());
+        currentPlayerPiece.setImage(whitePawn);
     }
 
     public void setButtonColor(int row, int column){
@@ -149,7 +160,7 @@ public class ChessBoardController {
 
 
         if(!clickStatus){
-            if(tileMatrix[row][column].getPieceOnTile() == null) //|| tileMatrix[row][column].getPieceOnTile().getColor() != currentColor)
+            if(tileMatrix[row][column].getPieceOnTile() == null)// || tileMatrix[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
                 return;
             sourceRow = row;
             sourceColumn = column;
@@ -165,6 +176,7 @@ public class ChessBoardController {
             showPossibleMoves(clickStatus);
             setButtonColor(sourceRow, sourceColumn);
         }
+        currentPlayerName.setText(currentPlayer.getName());
         clickStatus = !clickStatus;
     }
 
@@ -176,9 +188,13 @@ public class ChessBoardController {
         buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
         buttonMatrix[sourceRow][sourceColumn].setGraphic(null);
 
-        if(currentColor == ColorType.WHITE)
-            currentColor = ColorType.BLACK;
-        else
-            currentColor = ColorType.WHITE;
+        if(currentPlayer == whitePlayer) {
+            currentPlayer = blackPlayer;
+            currentPlayerPiece.setImage(blackPawn);
+        }else{
+            currentPlayer = whitePlayer;
+            currentPlayerPiece.setImage(whitePawn);
+        }
+
     }
 }

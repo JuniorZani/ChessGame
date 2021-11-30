@@ -24,6 +24,7 @@ public class ChessGameApplication extends Application {
     }
 
     public static void changeScene(Stage stage, String fxmlPath, int width, int height) throws IOException {
+        System.setProperty("prism.lcdtext", "false");
         FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
         stage.setScene(scene);

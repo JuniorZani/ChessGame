@@ -21,10 +21,10 @@
     <HBox alignment="CENTER" layoutX="98.0" layoutY="102.0" prefHeight="110.0" prefWidth="201.0">
         <VBox alignment="TOP_CENTER" prefHeight="110.0" prefWidth="52.0">
             <ImageView fitHeight="55.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/blackPawn.png"/>
+                <Image url="@../Images/whitePawn.png"/>
             </ImageView>
             <ImageView fitHeight="53.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/whitePawn.png"/>
+                <Image url="@../Images/blackPawn.png"/>
             </ImageView>
         </VBox>
         <VBox alignment="CENTER" prefHeight="110.0" prefWidth="148.0" spacing="8.0">
@@ -34,7 +34,7 @@
                         <Font name="System Bold" size="12.0"/>
                     </font>
                 </Label>
-                <TextField/>
+                <TextField fx:id="whiteField"/>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="1.0">
                 <Label text="Jogador 2">
@@ -42,11 +42,11 @@
                         <Font name="System Bold" size="12.0"/>
                     </font>
                 </Label>
-                <TextField/>
+                <TextField fx:id="blackField"/>
             </VBox>
         </VBox>
     </HBox>
-    <Button fx:id="OK" layoutX="184.0" layoutY="238.0" mnemonicParsing="false" text="OK" onAction="#goToMenu">
+    <Button fx:id="OK" layoutX="184.0" layoutY="238.0" mnemonicParsing="false" onAction="#goToMenu" text="OK">
         <font>
             <Font name="System Bold" size="12.0"/>
         </font>
