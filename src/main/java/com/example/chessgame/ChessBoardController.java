@@ -162,6 +162,12 @@ public class ChessBoardController {
         if(!clickStatus){
             if(tileMatrix[row][column].getPieceOnTile() == null)// || tileMatrix[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
                 return;
+
+            if(currentPlayer.has(Queen.class))
+                System.out.println("TEM");
+            else
+                System.out.println("N TEM");
+
             sourceRow = row;
             sourceColumn = column;
             buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
@@ -181,20 +187,26 @@ public class ChessBoardController {
     }
 
     public void tradePositions() {
+        if(currentPlayer == whitePlayer) {
+            //In case a black piece is eaten
+            if(!tileMatrix[destinationRow][destinationColumn].isTileEmpty())
+                blackPlayer.getCapturedPieces().add(tileMatrix[destinationRow][destinationColumn].getPieceOnTile());
+
+            currentPlayer = blackPlayer;
+            currentPlayerPiece.setImage(blackPawn);
+        }else{
+            //In case a white piece is eaten
+            if(!tileMatrix[destinationRow][destinationColumn].isTileEmpty())
+                blackPlayer.getCapturedPieces().add(tileMatrix[destinationRow][destinationColumn].getPieceOnTile());
+            currentPlayer = whitePlayer;
+            currentPlayerPiece.setImage(whitePawn);
+        }
+
         tileMatrix[destinationRow][destinationColumn].setPieceOnTile(tileMatrix[sourceRow][sourceColumn].getPieceOnTile());
         tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setRow(destinationRow);
         tileMatrix[destinationRow][destinationColumn].getPieceOnTile().getCoordinate().setColumn(destinationColumn);
         tileMatrix[sourceRow][sourceColumn] = new Tile(null);
         buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
         buttonMatrix[sourceRow][sourceColumn].setGraphic(null);
-
-        if(currentPlayer == whitePlayer) {
-            currentPlayer = blackPlayer;
-            currentPlayerPiece.setImage(blackPawn);
-        }else{
-            currentPlayer = whitePlayer;
-            currentPlayerPiece.setImage(whitePawn);
-        }
-
     }
 }

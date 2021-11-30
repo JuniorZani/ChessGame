@@ -7,7 +7,7 @@ import static com.example.chessgame.ChessBoardController.tileMatrix;
 
 public abstract class Piece {
     private final ColorType color;
-    private Coordinates coordinate;
+    private final Coordinates coordinate;
 
     public ColorType getColor() {
         return color;
@@ -15,10 +15,6 @@ public abstract class Piece {
 
     public Coordinates getCoordinate() {
         return coordinate;
-    }
-
-    public void setCoordinate(Coordinates coordinate) {
-        this.coordinate = coordinate;
     }
 
     public Piece(ColorType color, int row, int column) {

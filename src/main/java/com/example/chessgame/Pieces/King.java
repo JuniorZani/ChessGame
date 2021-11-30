@@ -14,7 +14,7 @@ public class King extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
-        if (!(Math.abs(targetRow - currentRow) <= 1 &&  Math.abs(targetColumn - currentColumn) <= 1) || this.isChecked(targetRow, targetColumn)) {
+        if (!(Math.abs(targetRow - currentRow) <= 1 &&  Math.abs(targetColumn - currentColumn) <= 1) || this.isDestinationChecked(targetRow, targetColumn)) {
             return false;
         }
 
@@ -24,7 +24,7 @@ public class King extends Piece{
             return tileMatrix[targetRow][targetColumn].isTileEmpty();
     }
 
-    public boolean isChecked(int targetRow, int targetColumn){
+    public boolean isDestinationChecked(int targetRow, int targetColumn){
         for(int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 if(!tileMatrix[i][j].isTileEmpty() && tileMatrix[i][j].getPieceOnTile().getColor() != this.getColor()){
@@ -37,4 +37,14 @@ public class King extends Piece{
         return false;
     }
 
+    public boolean isChecked(){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j< 8; j++){
+                if(!tileMatrix[i][j].isTileEmpty() && tileMatrix[i][j].getPieceOnTile().getColor() != this.getColor())
+                    if(tileMatrix[i][j].getPieceOnTile().canEat(this.getCoordinate().getRow(), this.getCoordinate().getRow()))
+                        return true;
+            }
+        }
+        return false;
+    }
 }

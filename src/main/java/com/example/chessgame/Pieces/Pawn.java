@@ -16,7 +16,7 @@ public class Pawn extends Piece{
         //Movement Verification
         if(currentColumn == targetColumn) {
             if (this.getColor() == ColorType.WHITE) {
-                if (!tileMatrix[currentRow - 1][currentColumn].isTileEmpty()){
+                if ( currentRow - 1 > 0 && !tileMatrix[currentRow - 1][currentColumn].isTileEmpty()){
                     return false;
                 }else{
                     if (currentRow == 6){
@@ -29,7 +29,7 @@ public class Pawn extends Piece{
                     }
                 }
             } else {
-                if (!tileMatrix[currentRow + 1][currentColumn].isTileEmpty()){
+                if (currentRow + 1 < 8 && !tileMatrix[currentRow + 1][currentColumn].isTileEmpty()){
                     return false;
                 }else{
                     if (currentRow == 1){
