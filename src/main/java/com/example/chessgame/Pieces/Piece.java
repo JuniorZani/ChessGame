@@ -2,12 +2,14 @@ package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
 import com.example.chessgame.Coordinates;
+import com.example.chessgame.PieceType;
 
-import static com.example.chessgame.ChessBoardController.tileMatrix;
+import static com.example.chessgame.ChessBoardController.tiles;
 
 public abstract class Piece {
     private final ColorType color;
     private final Coordinates coordinate;
+    private final PieceType type;
 
     public ColorType getColor() {
         return color;
@@ -17,16 +19,21 @@ public abstract class Piece {
         return coordinate;
     }
 
-    public Piece(ColorType color, int row, int column) {
+    public PieceType getType() {
+        return type;
+    }
+
+    public Piece(ColorType color, PieceType type, int row, int column) {
         this.color = color;
+        this.type = type;
         coordinate = new Coordinates(row, column);
     }
 
     public abstract boolean canMove(int targetRow, int targetColumn);
 
     public boolean canEat(int targetRow, int targetColumn) {
-        if(tileMatrix[targetRow][targetColumn].isTileEmpty())
+        if(tiles[targetRow][targetColumn].isTileEmpty())
             return true;
-        return tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
+        return tiles[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
     }
 }

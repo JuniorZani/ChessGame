@@ -1,13 +1,14 @@
 package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
+import com.example.chessgame.PieceType;
 
-import static com.example.chessgame.ChessBoardController.tileMatrix;
+import static com.example.chessgame.ChessBoardController.tiles;
 
 public class Queen extends Piece{
 
     public Queen(ColorType color, int row, int column) {
-        super(color, row, column);
+        super(color, PieceType.QUEEN, row, column);
     }
 
     @Override

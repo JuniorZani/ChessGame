@@ -1,14 +1,15 @@
 package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
+import com.example.chessgame.PieceType;
 
-import static com.example.chessgame.ChessBoardController.tileMatrix;
+import static com.example.chessgame.ChessBoardController.tiles;
 
 
 public class Rook extends Piece{
 
     public Rook(ColorType color, int row, int column) {
-        super(color, row, column);
+        super(color, PieceType.ROOK, row, column);
     }
 
     @Override
@@ -23,24 +24,24 @@ public class Rook extends Piece{
         if (currentRow == targetRow) {
             if (currentColumn > targetColumn) {
                 for (int j = currentColumn - 1; j > targetColumn; j--) {
-                    if (!tileMatrix[currentRow][j].isTileEmpty())
+                    if (!tiles[currentRow][j].isTileEmpty())
                         return false;
                 }
             }else {
                 for (int j = currentColumn + 1; j < targetColumn; j++) {
-                    if (!tileMatrix[currentRow][j].isTileEmpty())
+                    if (!tiles[currentRow][j].isTileEmpty())
                         return false;
                 }
             }
         } else {
             if (currentRow > targetRow) {
                 for (int i = currentRow - 1; i > targetRow; i--) {
-                    if (!tileMatrix[i][currentColumn].isTileEmpty())
+                    if (!tiles[i][currentColumn].isTileEmpty())
                         return false;
                 }
             }else {
                 for (int i = currentRow + 1; i < targetRow; i++) {
-                    if (!tileMatrix[i][currentColumn].isTileEmpty())
+                    if (!tiles[i][currentColumn].isTileEmpty())
                         return false;
                 }
             }

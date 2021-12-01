@@ -1,12 +1,14 @@
 package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
-import static com.example.chessgame.ChessBoardController.tileMatrix;
+import com.example.chessgame.PieceType;
+
+import static com.example.chessgame.ChessBoardController.tiles;
 
 public class King extends Piece{
 
     public King(ColorType color, int row, int column) {
-        super(color, row, column);
+        super(color, PieceType.KING, row, column);
     }
 
     @Override
@@ -14,35 +16,24 @@ public class King extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
-        if (!(Math.abs(targetRow - currentRow) <= 1 &&  Math.abs(targetColumn - currentColumn) <= 1) || this.isDestinationChecked(targetRow, targetColumn)) {
+        if (!(Math.abs(targetRow - currentRow) <= 1 &&  Math.abs(targetColumn - currentColumn) <= 1) || this.isChecked(targetRow, targetColumn)) {
             return false;
         }
 
-        if(tileMatrix[targetRow][targetColumn].getPieceOnTile() == null || this.getColor() != tileMatrix[targetRow][targetColumn].getPieceOnTile().getColor()){
+        if(tiles[targetRow][targetColumn].getPieceOnTile() == null || this.getColor() != tiles[targetRow][targetColumn].getPieceOnTile().getColor()){
             return true;
         }else
-            return tileMatrix[targetRow][targetColumn].isTileEmpty();
+            return tiles[targetRow][targetColumn].isTileEmpty();
     }
 
-    public boolean isDestinationChecked(int targetRow, int targetColumn){
+    public boolean isChecked(int targetRow, int targetColumn){
         for(int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
-                if(!tileMatrix[i][j].isTileEmpty() && tileMatrix[i][j].getPieceOnTile().getColor() != this.getColor()){
-                    if(tileMatrix[i][j].getPieceOnTile().canMove(targetRow, targetColumn)){
+                if(!tiles[i][j].isTileEmpty() && tiles[i][j].getPieceOnTile().getColor() != this.getColor()){
+                    if(tiles[i][j].getPieceOnTile().canMove(targetRow, targetColumn)){
                         return true;
                     }
                 }
-            }
-        }
-        return false;
-    }
-
-    public boolean isChecked(){
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j< 8; j++){
-                if(!tileMatrix[i][j].isTileEmpty() && tileMatrix[i][j].getPieceOnTile().getColor() != this.getColor())
-                    if(tileMatrix[i][j].getPieceOnTile().canEat(this.getCoordinate().getRow(), this.getCoordinate().getRow()))
-                        return true;
             }
         }
         return false;

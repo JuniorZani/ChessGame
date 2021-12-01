@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Player {
     private final String name;
     private final ColorType color;
-    private final ArrayList<Piece> capturedPieces = new ArrayList<>();
+    private final ArrayList<Piece> playerPieces = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -18,20 +18,20 @@ public class Player {
         return color;
     }
 
-    public ArrayList<Piece> getCapturedPieces() {
-        return capturedPieces;
+    public ArrayList<Piece> getPieces() {
+        return playerPieces;
     }
 
     public int numPieces(){
-        return this.capturedPieces.size();
+        return this.playerPieces.size();
     }
 
-    public boolean has(Class<?> targetPieceType){
-        for (Piece piece : capturedPieces) {
-            if(piece.getClass().equals(targetPieceType))
-                return false;
+    public Piece has(PieceType type){
+        for (Piece piece : playerPieces) {
+            if(piece.getType() == type)
+                return piece;
         }
-        return true;
+        return null;
     }
 
     public Player(String name, ColorType color) {

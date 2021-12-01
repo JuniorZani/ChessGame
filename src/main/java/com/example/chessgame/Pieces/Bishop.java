@@ -1,12 +1,14 @@
 package com.example.chessgame.Pieces;
 
 import com.example.chessgame.ColorType;
-import static com.example.chessgame.ChessBoardController.tileMatrix;
+import com.example.chessgame.PieceType;
+
+import static com.example.chessgame.ChessBoardController.tiles;
 
 public class Bishop extends Piece {
 
     public Bishop(ColorType color, int row, int column) {
-        super(color, row, column);
+        super(color, PieceType.BISHOP, row, column);
     }
 
     @Override
@@ -14,6 +16,7 @@ public class Bishop extends Piece {
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
         int j;
+
         //Diagonal movement verification
         if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn))) {
             return false;
@@ -28,7 +31,7 @@ public class Bishop extends Piece {
                     if(j < targetColumn)
                         break;
                     else
-                        if (!tileMatrix[i][j].isTileEmpty())
+                        if (!tiles[i][j].isTileEmpty())
                             return false;
                         j--;
                 }
@@ -40,7 +43,7 @@ public class Bishop extends Piece {
                         if(j > targetColumn)
                             break;
                         else
-                            if (!tileMatrix[i][j].isTileEmpty())
+                            if (!tiles[i][j].isTileEmpty())
                                 return false;
                             j++;
                     }
@@ -57,7 +60,7 @@ public class Bishop extends Piece {
                         if(j < targetColumn)
                             break;
                         else
-                            if (!tileMatrix[i][j].isTileEmpty())
+                            if (!tiles[i][j].isTileEmpty())
                                 return false;
                             j--;
                     }
@@ -68,7 +71,7 @@ public class Bishop extends Piece {
                         if (j > targetColumn)
                             break;
                         else {
-                            if (!tileMatrix[i][j].isTileEmpty())
+                            if (!tiles[i][j].isTileEmpty())
                                 return false;
                             j++;
                         }
