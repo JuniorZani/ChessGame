@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import static com.example.chessgame.ChessGameApplication.changeScene;
 import static com.example.chessgame.Controllers.PlayersLoginController.blackPlayer;
 import static com.example.chessgame.Controllers.PlayersLoginController.whitePlayer;
 
@@ -29,6 +30,7 @@ public class ChessBoardController {
     int kingRow, kingColumn;
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
+    int turns = 0;
 
     public void initialize(){
         createBoard();
@@ -173,14 +175,6 @@ public class ChessBoardController {
         if(!clickStatus){
             if(tiles[row][column].getPieceOnTile() == null)// || tileMatrix[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
                 return;
-
-//            King king = (King) currentPlayer.has(PieceType.KING);
-//
-//            if(king != null)
-//                System.out.println("TEM");
-//            else
-//                System.out.println("N TEM");
-
             sourceRow = row;
             sourceColumn = column;
             buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
@@ -191,12 +185,24 @@ public class ChessBoardController {
                 destinationRow = row;
                 destinationColumn = column;
                 tradePositions();
+                turns++;
             }
             showPossibleMoves(clickStatus);
             setButtonColor(sourceRow, sourceColumn);
         }
         currentPlayerName.setText(currentPlayer.getName());
         clickStatus = !clickStatus;
+
+        if(draw())
+            System.out.println("EMPATE");
+
+    }
+
+    public boolean draw(){
+        if((!blackPlayer.isPawnMoved() && !whitePlayer.isPawnMoved()) && turns == 50 && (blackPlayer.numPieces() + whitePlayer.numPieces() == 32)){
+            return true;
+        }
+        return false;
     }
 
     public void tradePositions() {
@@ -213,6 +219,10 @@ public class ChessBoardController {
                 whitePlayer.getPieces().remove(tiles[destinationRow][destinationColumn].getPieceOnTile());
             currentPlayer = whitePlayer;
             currentPlayerPiece.setImage(whitePawn);
+        }
+
+        if(!currentPlayer.isPawnMoved() && tiles[sourceRow][sourceColumn].getPieceOnTile().getType() == PieceType.PAWN){
+            currentPlayer.setPawnMoved(true);
         }
 
         tiles[destinationRow][destinationColumn].setPieceOnTile(tiles[sourceRow][sourceColumn].getPieceOnTile());

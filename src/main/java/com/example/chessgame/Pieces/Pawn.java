@@ -6,6 +6,16 @@ import com.example.chessgame.PieceType;
 import static com.example.chessgame.ChessBoardController.tiles;
 public class Pawn extends Piece{
 
+    public boolean wasMoved = false;
+
+    public boolean isWasMoved() {
+        return wasMoved;
+    }
+
+    public void setWasMoved(boolean wasMoved) {
+        this.wasMoved = wasMoved;
+    }
+
     public Pawn(ColorType color, int row, int column) {
         super(color, PieceType.PAWN, row, column);
     }
@@ -22,8 +32,10 @@ public class Pawn extends Piece{
                     return false;
                 }else{
                     if (currentRow == 6){
-                        if (!tiles[currentRow - 2][currentColumn].isTileEmpty())
+                        if (!tiles[currentRow - 2][currentColumn].isTileEmpty()){
                             return (Math.abs(currentRow - targetRow) == 1);
+                        }
+
                         else
                             return (currentRow - targetRow > 0 && currentRow - targetRow <= 2);
                     }else{

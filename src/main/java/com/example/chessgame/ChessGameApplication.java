@@ -32,6 +32,16 @@ public class ChessGameApplication extends Application {
         stage.show();
     }
 
+    public static void changeStage(String fxmlPath, int width, int height) throws IOException {
+        System.setProperty("prism.lcdtext", "false");
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
+        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
     public static void main(String[] args) {
         launch();
     }

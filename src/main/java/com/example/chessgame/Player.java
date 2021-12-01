@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Player {
     private final String name;
     private final ColorType color;
+    private boolean pawnMoved = false;
     private final ArrayList<Piece> playerPieces = new ArrayList<>();
 
     public String getName() {
@@ -16,6 +17,14 @@ public class Player {
 
     public ColorType getColor() {
         return color;
+    }
+
+    public boolean isPawnMoved() {
+        return pawnMoved;
+    }
+
+    public void setPawnMoved(boolean pawnMoved) {
+        this.pawnMoved = pawnMoved;
     }
 
     public ArrayList<Piece> getPieces() {
@@ -33,6 +42,7 @@ public class Player {
         }
         return null;
     }
+
 
     public Player(String name, ColorType color) {
         this.name = name;
