@@ -34,6 +34,15 @@ public class ChessGameApplication extends Application {
         stage.show();
     }
 
+    public static void changeStage(Stage currentStage, String fxmlPath, int width, int height) throws IOException{
+        currentStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
+        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        currentStage.setScene(scene);
+        currentStage.centerOnScreen();
+        currentStage.show();
+    }
+
     public static void popUp(String fxmlPath, int width, int height) throws IOException {
             System.setProperty("prism.lcdtext", "false");
             Stage popUpStage = new Stage();
@@ -41,9 +50,8 @@ public class ChessGameApplication extends Application {
             Scene scene = new Scene(fxmlLoader.load(), width, height);
             popUpStage.setScene(scene);
             popUpStage.centerOnScreen();
+            popUpStage.setResizable(false);
             popUpStage.showAndWait();
-//            popUpStage.close();
-
 
     }
 

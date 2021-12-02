@@ -37,7 +37,7 @@ public class ChessBoardController {
     int destinationRow, destinationColumn;
     int turns = 0;
     boolean clickStatus = false;
-    String finalizationReason;
+    public static String finalizationReason;
 
 
     public void initialize(){
@@ -203,16 +203,12 @@ public class ChessBoardController {
 
         if(draw()){
             try {
-                popUp("fxmls/Draw.fxml", 300, 200);
+                popUp("fxmls/Draw.fxml", 375, 200);
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                changeScene(currentStage, "fxmls/PlayersLogin.fxml", 400, 300);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("EMPATE");
-//            Alert drawAlert = new Alert(Alert.AlertType.INFORMATION);
-//            drawAlert.setTitle("Empate");
-//            drawAlert.setHeaderText("Ocorreu um Empate");
-//            drawAlert.setContentText(finalizationReason);
-//            drawAlert.showAndWait();
         }
     }
 
@@ -220,7 +216,7 @@ public class ChessBoardController {
         boolean pawnsUnmoved = (!blackPlayer.isPawnMoved() && !whitePlayer.isPawnMoved()) && turns == 2 && (blackPlayer.numPieces() + whitePlayer.numPieces() == 32);
 
         if(pawnsUnmoved){
-//            finalizationReason = "Os peões não foram movimentados e nenhma peça foi capturada após os 50 primeiros turnos do jogo";
+            finalizationReason = "Os peões não foram movimentados e nenhma peça foi capturada após os 50 primeiros turnos do jogo";
             return true;
         }
 
