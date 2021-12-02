@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PlayersLoginController {
-
     @FXML
     Button OK = new Button();
 

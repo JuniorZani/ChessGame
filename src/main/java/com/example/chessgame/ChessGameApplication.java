@@ -1,7 +1,9 @@
 package com.example.chessgame;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -32,14 +34,17 @@ public class ChessGameApplication extends Application {
         stage.show();
     }
 
-    public static void changeStage(String fxmlPath, int width, int height) throws IOException {
-        System.setProperty("prism.lcdtext", "false");
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
+    public static void popUp(String fxmlPath, int width, int height) throws IOException {
+            System.setProperty("prism.lcdtext", "false");
+            Stage popUpStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
+            Scene scene = new Scene(fxmlLoader.load(), width, height);
+            popUpStage.setScene(scene);
+            popUpStage.centerOnScreen();
+            popUpStage.showAndWait();
+//            popUpStage.close();
+
+
     }
 
     public static void main(String[] args) {

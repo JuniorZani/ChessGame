@@ -2,14 +2,20 @@ package com.example.chessgame;
 
 import com.example.chessgame.Pieces.*;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import static com.example.chessgame.ChessGameApplication.changeScene;
+import static com.example.chessgame.ChessGameApplication.popUp;
 import static com.example.chessgame.Controllers.PlayersLoginController.blackPlayer;
 import static com.example.chessgame.Controllers.PlayersLoginController.whitePlayer;
 
@@ -26,11 +32,13 @@ public class ChessBoardController {
     public static Tile [][] tiles = new Tile[8][8];
     Player currentPlayer = whitePlayer;
     Image blackPawn = new Image("com/example/chessgame/images/blackPawn.png"), whitePawn = new Image("com/example/chessgame/images/whitePawn.png");
-    boolean clickStatus = false;
-    int kingRow, kingColumn;
+
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
     int turns = 0;
+    boolean clickStatus = false;
+    String finalizationReason;
+
 
     public void initialize(){
         createBoard();
@@ -193,15 +201,29 @@ public class ChessBoardController {
         currentPlayerName.setText(currentPlayer.getName());
         clickStatus = !clickStatus;
 
-        if(draw())
+        if(draw()){
+            try {
+                popUp("fxmls/Draw.fxml", 300, 200);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             System.out.println("EMPATE");
-
+//            Alert drawAlert = new Alert(Alert.AlertType.INFORMATION);
+//            drawAlert.setTitle("Empate");
+//            drawAlert.setHeaderText("Ocorreu um Empate");
+//            drawAlert.setContentText(finalizationReason);
+//            drawAlert.showAndWait();
+        }
     }
 
     public boolean draw(){
-        if((!blackPlayer.isPawnMoved() && !whitePlayer.isPawnMoved()) && turns == 50 && (blackPlayer.numPieces() + whitePlayer.numPieces() == 32)){
+        boolean pawnsUnmoved = (!blackPlayer.isPawnMoved() && !whitePlayer.isPawnMoved()) && turns == 2 && (blackPlayer.numPieces() + whitePlayer.numPieces() == 32);
+
+        if(pawnsUnmoved){
+//            finalizationReason = "Os peões não foram movimentados e nenhma peça foi capturada após os 50 primeiros turnos do jogo";
             return true;
         }
+
         return false;
     }
 
