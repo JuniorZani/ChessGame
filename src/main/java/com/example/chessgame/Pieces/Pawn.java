@@ -6,15 +6,6 @@ import com.example.chessgame.PieceType;
 import static com.example.chessgame.ChessBoardController.tiles;
 public class Pawn extends Piece{
 
-    public boolean wasMoved = false;
-
-    public boolean isWasMoved() {
-        return wasMoved;
-    }
-
-    public void setWasMoved(boolean wasMoved) {
-        this.wasMoved = wasMoved;
-    }
 
     public Pawn(ColorType color, int row, int column) {
         super(color, PieceType.PAWN, row, column);

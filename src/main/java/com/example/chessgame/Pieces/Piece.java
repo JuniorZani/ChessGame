@@ -36,4 +36,5 @@ public abstract class Piece {
             return true;
         return tiles[targetRow][targetColumn].getPieceOnTile().getColor() != this.getColor();
     }
+
 }
