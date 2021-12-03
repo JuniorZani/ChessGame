@@ -1,6 +1,10 @@
-package com.example.chessgame;
+package com.example.chessgame.Controllers;
 
+import com.example.chessgame.ColorType;
+import com.example.chessgame.PieceType;
 import com.example.chessgame.Pieces.*;
+import com.example.chessgame.Player;
+import com.example.chessgame.Tile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,7 +23,6 @@ import static com.example.chessgame.Controllers.ConfirmationController.actionCon
 import static com.example.chessgame.Controllers.PlayersLoginController.blackPlayer;
 import static com.example.chessgame.Controllers.PlayersLoginController.whitePlayer;
 
-
 public class ChessBoardController {
     @FXML
     GridPane board = new GridPane();
@@ -33,7 +36,7 @@ public class ChessBoardController {
     public static boolean tied = false;
     public static String endGameReason;
     public static Tile[][] tiles = new Tile[8][8];
-    public static Player currentPlayer = whitePlayer;
+    public static Player currentPlayer;
 
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
@@ -45,6 +48,7 @@ public class ChessBoardController {
 
     public void initialize() {
         createBoard();
+        currentPlayer = whitePlayer;
         currentPlayerName.setText(currentPlayer.getName());
         currentPlayerPiece.setImage(whitePawn);
     }
@@ -250,7 +254,7 @@ public class ChessBoardController {
 
     public void endGame(ActionEvent actionEvent) {
         try {
-            popUp("Fim de Jogo", "com/example/chessgame/Images/blackRook.png", "fxmls/EndGamePopUp.fxml", 375, 200);
+            popUp("Fim de Jogo", "com/example/chessgame/Images/blackRook.png", "fxmls/EndGamePopUp.fxml", 350, 250);
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             changeScene(currentStage, "fxmls/PlayersLogin.fxml", 400, 300);
         } catch (IOException e) {
@@ -260,19 +264,16 @@ public class ChessBoardController {
 
     public void proposeTie(ActionEvent actionEvent) throws IOException {
         tied = true;
-        popUp("Proposta De Empate","com/example/chessgame/Images/handshake.png", "fxmls/Confirmation.fxml", 350, 200);
-        tied = !tied;
+        popUp("Proposta De Empate", "com/example/chessgame/Images/handshake.png", "fxmls/Confirmation.fxml", 350, 250);
         if (actionConfirmed) {
             endGameReason = "Ambos os jogadores aceitaram o fim do jogo";
-            tied = true;
             endGame(actionEvent);
         }
     }
 
     public void surrender(ActionEvent actionEvent) throws IOException {
         tied = false;
-        popUp("Confirmação de Desistência", "com/example/chessgame/Images/white-flag.png" , "fxmls/Confirmation.fxml", 350, 200);
-        tied = !tied;
+        popUp("Confirmação de Desistência", "com/example/chessgame/Images/white-flag.png", "fxmls/Confirmation.fxml", 350, 250);
         if (actionConfirmed) {
             endGameReason = "O jogador adversário se rendeu";
             endGame(actionEvent);

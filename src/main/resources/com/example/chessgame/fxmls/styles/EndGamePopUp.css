@@ -1,0 +1,40 @@
+@font-face {
+    src: url('/com/example/chessgame/fonts/Mt-Bold.ttf');
+}
+@font-face {
+    src: url('/com/example/chessgame/fonts/ForoSans-Light.ttf');
+}
+
+.background{
+    -fx-background-color: #BDC4D2;
+}
+
+#endGameTitle{
+    -fx-font-family: Montserrat Bold;
+    -fx-font-size: 14pt;
+}
+
+#endGameText{
+    -fx-font-family: ForoSans-Light;
+    -fx-font-size: 12pt;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 1, 0, 0, 0);
+}
+
+.reason{
+    -fx-font-family: Montserrat Bold;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #7891D2;
+}
+
+.button{
+    -fx-background-color: linear-gradient(to bottom, #7891D2, #50669F);
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7B61FF, #5341B0);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #FEFEFE, #C5C0DB);
+}

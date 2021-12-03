@@ -19,10 +19,10 @@ public class PlayersLoginController {
     Button OK = new Button();
 
     @FXML
-    TextField blackField;
+    TextField blackField = null;
 
     @FXML
-    TextField whiteField;
+    TextField whiteField = null;
 
     public static Player blackPlayer, whitePlayer;
 

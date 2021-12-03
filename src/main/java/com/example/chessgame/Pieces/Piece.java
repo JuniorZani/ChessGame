@@ -4,7 +4,7 @@ import com.example.chessgame.ColorType;
 import com.example.chessgame.Coordinates;
 import com.example.chessgame.PieceType;
 
-import static com.example.chessgame.ChessBoardController.tiles;
+import static com.example.chessgame.Controllers.ChessBoardController.tiles;
 
 public abstract class Piece {
     private final ColorType color;
