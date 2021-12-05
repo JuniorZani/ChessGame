@@ -44,7 +44,6 @@ public class King extends Piece{
             for (int j = 0; j < 8; j++){
                 if(!tiles[i][j].isTileEmpty() && tiles[i][j].getPieceOnTile().getColor() != this.getColor()){
                     if(tiles[i][j].getPieceOnTile().canMove(this.getCoordinate().getRow(), this.getCoordinate().getColumn())){
-                        System.out.println("Linha: " + this.getCoordinate().getRow() + "Coluna: " + this.getCoordinate().getColumn());
                         buttonMatrix[this.getCoordinate().getRow()][this.getCoordinate().getColumn()].setStyle("-fx-background-color: #E49E9E;");
                         return true;
                     }

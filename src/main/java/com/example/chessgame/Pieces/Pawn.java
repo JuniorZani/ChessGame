@@ -58,6 +58,9 @@ public class Pawn extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
+        if(this.getCoordinate().getRow() == targetRow && this.getCoordinate().getColumn() == targetColumn)
+            return false;
+
         if (currentColumn != targetColumn) {
             if (this.getColor() == ColorType.WHITE) {
                 if (currentRow - 1 == targetRow) {

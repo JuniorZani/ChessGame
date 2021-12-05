@@ -18,7 +18,7 @@ public class Bishop extends Piece {
         int j;
 
         //Diagonal movement verification
-        if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn))) {
+        if (!(Math.abs(targetRow - currentRow) == Math.abs(targetColumn - currentColumn)) || (this.getCoordinate().getRow() == targetRow && this.getCoordinate().getColumn() == targetColumn)) {
             return false;
         }
         //top diagonals

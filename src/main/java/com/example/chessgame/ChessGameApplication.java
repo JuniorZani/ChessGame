@@ -2,6 +2,7 @@ package com.example.chessgame;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,7 +42,6 @@ public class ChessGameApplication extends Application {
     public static void popUp(String title, String imagePath, String fxmlPath, int width, int height) throws IOException {
         System.setProperty("prism.lcdtext", "false");
         Stage popUpStage = new Stage();
-//        popUpStage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource(fxmlPath));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
@@ -49,7 +49,11 @@ public class ChessGameApplication extends Application {
 
         popUpStage.setScene(scene);
         popUpStage.centerOnScreen();
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+
         popUpStage.setResizable(false);
+        popUpStage.setOnCloseRequest(Event::consume);
+        popUpStage.setAlwaysOnTop(true);
         popUpStage.setTitle(title);
         popUpStage.getIcons().add(Icon);
         popUpStage.showAndWait();

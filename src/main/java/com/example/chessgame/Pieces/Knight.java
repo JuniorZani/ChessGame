@@ -15,7 +15,10 @@ public class Knight extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
-        return (Math.abs(targetRow - currentRow) == 1 && Math.abs(targetColumn - currentColumn) == 2) ||
-                (Math.abs(targetRow - currentRow) == 2 && Math.abs(targetColumn - currentColumn) == 1);
+        if(this.getCoordinate().getRow() == targetRow && this.getCoordinate().getColumn() == targetColumn)
+            return false;
+
+        return (((Math.abs(targetRow - currentRow) == 1 && Math.abs(targetColumn - currentColumn) == 2) ||
+                (Math.abs(targetRow - currentRow) == 2 && Math.abs(targetColumn - currentColumn) == 1)) );
     }
 }

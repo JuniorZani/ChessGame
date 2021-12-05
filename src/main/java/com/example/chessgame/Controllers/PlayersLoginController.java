@@ -27,8 +27,16 @@ public class PlayersLoginController {
     public static Player blackPlayer, whitePlayer;
 
     public void goToMenu(ActionEvent actionEvent) throws IOException {
-        blackPlayer = new Player(blackField.getText(), ColorType.BLACK);
-        whitePlayer = new Player(whiteField.getText(), ColorType.WHITE);
+        if(blackField.getText().equals(""))
+            blackPlayer = new Player("Preto", ColorType.BLACK);
+        else
+            blackPlayer = new Player(blackField.getText(), ColorType.BLACK);
+
+        if(whiteField.getText().equals(""))
+            whitePlayer = new Player("Branco", ColorType.WHITE);
+        else
+            whitePlayer = new Player(whiteField.getText(), ColorType.WHITE);
+
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         ChessGameApplication.changeScene(stage,"fxmls/ChessBoard.fxml",950,750);

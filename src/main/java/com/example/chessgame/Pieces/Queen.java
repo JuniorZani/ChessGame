@@ -18,7 +18,6 @@ public class Queen extends Piece{
         Rook rook =  new Rook(this.getColor(), currentRow, currentColumn);
 
         return (bishop.canMove(targetRow, targetColumn) || rook.canMove(targetRow, targetColumn));
-
     }
 
 }

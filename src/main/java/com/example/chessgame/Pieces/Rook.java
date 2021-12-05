@@ -17,7 +17,7 @@ public class Rook extends Piece{
         int currentRow = getCoordinate().getRow();
         int currentColumn = getCoordinate().getColumn();
 
-        if (currentRow != targetRow && currentColumn != targetColumn) {
+        if ((currentRow != targetRow && currentColumn != targetColumn) || (this.getCoordinate().getRow() == targetRow && this.getCoordinate().getColumn() == targetColumn)) {
             return false;
         }
 
