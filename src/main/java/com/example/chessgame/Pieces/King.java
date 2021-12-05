@@ -4,6 +4,7 @@ import com.example.chessgame.ColorType;
 import com.example.chessgame.PieceType;
 
 import static com.example.chessgame.Controllers.ChessBoardController.tiles;
+import static com.example.chessgame.Controllers.ChessBoardController.buttonMatrix;
 
 public class King extends Piece{
 
@@ -38,4 +39,20 @@ public class King extends Piece{
         }
         return false;
     }
+    public boolean isChecked(){
+        for(int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if(!tiles[i][j].isTileEmpty() && tiles[i][j].getPieceOnTile().getColor() != this.getColor()){
+                    if(tiles[i][j].getPieceOnTile().canMove(this.getCoordinate().getRow(), this.getCoordinate().getColumn())){
+                        System.out.println("Linha: " + this.getCoordinate().getRow() + "Coluna: " + this.getCoordinate().getColumn());
+                        buttonMatrix[this.getCoordinate().getRow()][this.getCoordinate().getColumn()].setStyle("-fx-background-color: #E49E9E;");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
 }

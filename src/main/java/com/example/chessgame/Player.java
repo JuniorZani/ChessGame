@@ -1,9 +1,11 @@
 package com.example.chessgame;
 
+import com.example.chessgame.Pieces.King;
 import com.example.chessgame.Pieces.Piece;
-import com.example.chessgame.Pieces.Rook;
 
 import java.util.ArrayList;
+
+import static com.example.chessgame.PieceType.*;
 
 public class Player {
     private final String name;
@@ -26,14 +28,13 @@ public class Player {
         return this.playerPieces.size();
     }
 
-    public Piece has(PieceType type){
+    public Piece getKing(){
         for (Piece piece : playerPieces) {
-            if(piece.getType() == type)
+            if(piece.getType() == KING)
                 return piece;
         }
         return null;
     }
-
 
     public Player(String name, ColorType color) {
         this.name = name;

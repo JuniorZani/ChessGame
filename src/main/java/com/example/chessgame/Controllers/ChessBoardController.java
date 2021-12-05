@@ -42,16 +42,24 @@ public class ChessBoardController {
     int destinationRow, destinationColumn;
     int turns = 0;
     boolean clickStatus = false;
+    boolean whiteKingChecked, blackKingChecked = false;
 
-    Button[][] buttonMatrix = new Button[8][8];
+    King blackPlayerKing, whitePlayerKing;
+
+
+    public static Button[][] buttonMatrix = new Button[8][8];
     Image blackPawn = new Image("com/example/chessgame/images/blackPawn.png"), whitePawn = new Image("com/example/chessgame/images/whitePawn.png");
+
 
     public void initialize() {
         createBoard();
         currentPlayer = whitePlayer;
+        whitePlayerKing = (King) whitePlayer.getKing();
+        blackPlayerKing = (King) blackPlayer.getKing();
         currentPlayerName.setText(currentPlayer.getName());
         currentPlayerPiece.setImage(whitePawn);
     }
+
 
     public void createBoard() {
         for (int i = 0; i < 8; i++) {
@@ -161,8 +169,24 @@ public class ChessBoardController {
         int row = GridPane.getRowIndex(clickedButton);
         int column = GridPane.getColumnIndex(clickedButton);
 
+        if(currentPlayer == whitePlayer && blackPlayerKing.isChecked() || currentPlayer == blackPlayer && whitePlayerKing.isChecked()){
+            if(currentPlayer == whitePlayer){
+                currentPlayer = blackPlayer;
+            }else
+                currentPlayer = whitePlayer;
+            endGameReason = "O rei adversário foi capturado";
+            tied = false;
+            endGame(actionEvent);
+        }
+
+        if(whitePlayerKing.isChecked())
+            whiteKingChecked = true;
+        else
+            if(blackPlayerKing.isChecked())
+                blackKingChecked = true;
+
         if (!clickStatus) {
-            if (tiles[row][column].getPieceOnTile() == null)// || tileMatrix[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
+            if (tiles[row][column].getPieceOnTile() == null || tiles[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
                 return;
             sourceRow = row;
             sourceColumn = column;
@@ -174,16 +198,29 @@ public class ChessBoardController {
                 destinationRow = row;
                 destinationColumn = column;
                 tradePositions();
+
+                if(whiteKingChecked){
+                    endGameReason = "O rei adversário foi capturado";
+                    currentPlayer = whitePlayer;
+                    tied = false;
+                    endGame(actionEvent);
+                }else
+                    if(blackKingChecked){
+                        endGameReason = "O rei adversário foi capturado";
+                        currentPlayer = blackPlayer;
+                        tied = false;
+                        endGame(actionEvent);
+                    }
             }
             showPossibleMoves(clickStatus);
             setButtonColor(sourceRow, sourceColumn);
         }
-        currentPlayerName.setText(currentPlayer.getName());
-        clickStatus = !clickStatus;
 
-        if (verifyEndGame()) {
+        if (verifyEndGame())
             endGame(actionEvent);
-        }
+
+        clickStatus = !clickStatus;
+        currentPlayerName.setText(currentPlayer.getName());
     }
 
     public void showPossibleMoves(boolean clickStatus) {
@@ -212,6 +249,7 @@ public class ChessBoardController {
     }
 
     public void tradePositions() {
+
         if (currentPlayer == whitePlayer) {
             //In case a black piece is eaten
             if (!tiles[destinationRow][destinationColumn].isTileEmpty() || tiles[sourceRow][sourceColumn].getPieceOnTile().getType() == PieceType.PAWN) {
@@ -238,17 +276,25 @@ public class ChessBoardController {
         tiles[sourceRow][sourceColumn] = new Tile(null);
         buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
         buttonMatrix[sourceRow][sourceColumn].setGraphic(null);
+
+        if(!blackPlayerKing.isChecked()){
+            blackKingChecked = false;
+        }
+
+        if(!whitePlayerKing.isChecked()){
+            whiteKingChecked = false;
+        }
     }
 
     public boolean verifyEndGame() {
-        boolean pawnsUnmoved = turns == 2;
+
+        boolean pawnsUnmoved = turns == 50;
 
         if (pawnsUnmoved) {
             endGameReason = "Os peões não foram movimentados e nenhuma peça foi capturada durante 50 turnos do jogo";
             tied = true;
             return true;
         } else
-
             return false;
     }
 
