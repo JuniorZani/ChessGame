@@ -30,23 +30,13 @@
     -fx-text-fill: #7891D2;
 }
 
-#surrender{
+.actionButton{
     -fx-background-color: #E5E5E5;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 0);
     -fx-font-family: ForoSans-Light;
 }
 
-#surrender:hover{
-    -fx-background-color: #F4F7FA;
-}
-
-#tie{
-    -fx-background-color: #E5E5E5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 0);
-    -fx-font-family: ForoSans-Light;
-}
-
-#tie:hover{
+.actionButton:hover{
     -fx-background-color: #F4F7FA;
 }
 

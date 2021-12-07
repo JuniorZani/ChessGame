@@ -2,14 +2,13 @@ package com.example.chessgame.Controllers;
 
 
 import com.example.chessgame.ChessGameApplication;
-import com.example.chessgame.ColorType;
-import com.example.chessgame.Player;
+import com.example.chessgame.Enums.ColorType;
+import com.example.chessgame.Miscellaneous.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class PlayersLoginController {
 
     public static Player blackPlayer, whitePlayer;
 
-    public void goToMenu(ActionEvent actionEvent) throws IOException {
+    public void goToBoard(ActionEvent actionEvent) throws IOException {
         if(blackField.getText().equals(""))
             blackPlayer = new Player("Preto", ColorType.BLACK);
         else

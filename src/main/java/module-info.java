@@ -9,4 +9,8 @@ module com.example.chessgame {
     exports com.example.chessgame.Pieces;
     opens com.example.chessgame to javafx.fxml;
     exports com.example.chessgame;
+    exports com.example.chessgame.Enums;
+    opens com.example.chessgame.Enums to javafx.fxml;
+    exports com.example.chessgame.Miscellaneous;
+    opens com.example.chessgame.Miscellaneous to javafx.fxml;
 }

@@ -1,10 +1,12 @@
 package com.example.chessgame.Controllers;
 
-import com.example.chessgame.ColorType;
-import com.example.chessgame.PieceType;
+import com.example.chessgame.ChessGameApplication;
+import com.example.chessgame.Enums.ColorType;
+import com.example.chessgame.Enums.PieceType;
+import com.example.chessgame.Miscellaneous.Log;
 import com.example.chessgame.Pieces.*;
-import com.example.chessgame.Player;
-import com.example.chessgame.Tile;
+import com.example.chessgame.Miscellaneous.Player;
+import com.example.chessgame.Miscellaneous.Tile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.example.chessgame.ChessGameApplication.changeScene;
 import static com.example.chessgame.ChessGameApplication.popUp;
@@ -36,28 +42,31 @@ public class ChessBoardController {
     public static boolean tied = false;
     public static String endGameReason;
     public static Tile[][] tiles = new Tile[8][8];
+    public static Button[][] buttonMatrix = new Button[8][8];
     public static Player currentPlayer;
 
     int sourceRow, sourceColumn;
     int destinationRow, destinationColumn;
-    int turns = 0;
+    int turns = 0, moves = 1;
     boolean clickStatus = false;
     boolean whiteKingChecked, blackKingChecked = false;
+    Log gameLog = new Log();
 
     King blackPlayerKing, whitePlayerKing;
-
-
-    public static Button[][] buttonMatrix = new Button[8][8];
     Image blackPawn = new Image("com/example/chessgame/images/blackPawn.png"), whitePawn = new Image("com/example/chessgame/images/whitePawn.png");
 
 
-    public void initialize() {
+    public void initialize() throws IOException {
         createBoard();
         currentPlayer = whitePlayer;
         whitePlayerKing = (King) whitePlayer.getKing();
         blackPlayerKing = (King) blackPlayer.getKing();
         currentPlayerName.setText(currentPlayer.getName());
         currentPlayerPiece.setImage(whitePawn);
+
+        String logName = new SimpleDateFormat("yyyy-MM-dd-HHmmss'.txt'").format(new Date());
+        gameLog.file = new FileWriter("src/main/resources/com/example/chessgame/logs/" + logName);
+        gameLog.printFile = new PrintWriter(gameLog.file);
     }
 
 
@@ -169,50 +178,55 @@ public class ChessBoardController {
         int row = GridPane.getRowIndex(clickedButton);
         int column = GridPane.getColumnIndex(clickedButton);
 
-        if(currentPlayer == whitePlayer && blackPlayerKing.isChecked() || currentPlayer == blackPlayer && whitePlayerKing.isChecked()){
-            if(currentPlayer == whitePlayer){
+        if (currentPlayer == whitePlayer && blackPlayerKing.isChecked() || currentPlayer == blackPlayer && whitePlayerKing.isChecked()) {
+            if (currentPlayer == whitePlayer) {
                 currentPlayer = blackPlayer;
-            }else
+            } else
                 currentPlayer = whitePlayer;
             endGameReason = "O rei adversário foi capturado";
             tied = false;
             endGame(actionEvent);
         }
 
-        if(whitePlayerKing.isChecked())
+        if (whitePlayerKing.isChecked())
             whiteKingChecked = true;
-        else
-            if(blackPlayerKing.isChecked())
-                blackKingChecked = true;
+        else if (blackPlayerKing.isChecked())
+            blackKingChecked = true;
 
+        // Primeiro Clique
         if (!clickStatus) {
             if (tiles[row][column].getPieceOnTile() == null || tiles[row][column].getPieceOnTile().getColor() != currentPlayer.getColor())
                 return;
             sourceRow = row;
             sourceColumn = column;
             buttonMatrix[sourceRow][sourceColumn].setStyle("-fx-background-color: #7B61FF;");
-            showPossibleMoves(clickStatus);
+            showPossibleMoves();
 
+        // Segundo clique
         } else {
             if (tiles[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column) && tiles[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
                 destinationRow = row;
                 destinationColumn = column;
+                gameLog.saveMove(sourceRow, sourceColumn, destinationRow, destinationColumn, moves);
+                if(currentPlayer.getColor().equals(ColorType.BLACK))
+                    moves++;
+
                 tradePositions();
 
-                if(whiteKingChecked){
+
+                if (whiteKingChecked) {
                     endGameReason = "O rei adversário foi capturado";
                     currentPlayer = whitePlayer;
                     tied = false;
                     endGame(actionEvent);
-                }else
-                    if(blackKingChecked){
-                        endGameReason = "O rei adversário foi capturado";
-                        currentPlayer = blackPlayer;
-                        tied = false;
-                        endGame(actionEvent);
-                    }
+                } else if (blackKingChecked) {
+                    endGameReason = "O rei adversário foi capturado";
+                    currentPlayer = blackPlayer;
+                    tied = false;
+                    endGame(actionEvent);
+                }
             }
-            showPossibleMoves(clickStatus);
+            showPossibleMoves();
             setButtonColor(sourceRow, sourceColumn);
         }
 
@@ -223,7 +237,7 @@ public class ChessBoardController {
         currentPlayerName.setText(currentPlayer.getName());
     }
 
-    public void showPossibleMoves(boolean clickStatus) {
+    public void showPossibleMoves() {
         if (!clickStatus) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -249,7 +263,6 @@ public class ChessBoardController {
     }
 
     public void tradePositions() {
-
         if (currentPlayer == whitePlayer) {
             //In case a black piece is eaten
             if (!tiles[destinationRow][destinationColumn].isTileEmpty() || tiles[sourceRow][sourceColumn].getPieceOnTile().getType() == PieceType.PAWN) {
@@ -277,14 +290,15 @@ public class ChessBoardController {
         buttonMatrix[destinationRow][destinationColumn].setGraphic(buttonMatrix[sourceRow][sourceColumn].getGraphic());
         buttonMatrix[sourceRow][sourceColumn].setGraphic(null);
 
-        if(!blackPlayerKing.isChecked()){
+        if (!blackPlayerKing.isChecked()) {
             blackKingChecked = false;
         }
 
-        if(!whitePlayerKing.isChecked()){
+        if (!whitePlayerKing.isChecked()) {
             whiteKingChecked = false;
         }
     }
+
 
     public boolean verifyEndGame() {
 
@@ -300,7 +314,8 @@ public class ChessBoardController {
 
     public void endGame(ActionEvent actionEvent) {
         try {
-            popUp("Fim de Jogo", "com/example/chessgame/Images/blackRook.png", "fxmls/EndGamePopUp.fxml", 350, 250);
+            gameLog.file.close();
+            popUp("Fim de Jogo", "com/example/chessgame/images/blackRook.png", "fxmls/EndGamePopUp.fxml", 350, 250);
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             changeScene(currentStage, "fxmls/PlayersLogin.fxml", 400, 300);
         } catch (IOException e) {
@@ -310,7 +325,7 @@ public class ChessBoardController {
 
     public void proposeTie(ActionEvent actionEvent) throws IOException {
         tied = true;
-        popUp("Proposta De Empate", "com/example/chessgame/Images/handshake.png", "fxmls/Confirmation.fxml", 350, 250);
+        popUp("Proposta De Empate", "com/example/chessgame/images/handshake.png", "fxmls/Confirmation.fxml", 350, 250);
         if (actionConfirmed) {
             endGameReason = "Ambos os jogadores aceitaram o fim do jogo";
             endGame(actionEvent);
@@ -319,10 +334,16 @@ public class ChessBoardController {
 
     public void surrender(ActionEvent actionEvent) throws IOException {
         tied = false;
-        popUp("Confirmação de Desistência", "com/example/chessgame/Images/white-flag.png", "fxmls/Confirmation.fxml", 350, 250);
+        popUp("Confirmação de Desistência", "com/example/chessgame/images/white-flag.png", "fxmls/Confirmation.fxml", 350, 250);
         if (actionConfirmed) {
             endGameReason = "O jogador adversário se rendeu";
             endGame(actionEvent);
         }
+    }
+
+    public void backToMenu(ActionEvent actionEvent) throws IOException {
+        gameLog.file.close();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        ChessGameApplication.changeScene(stage,"fxmls/PlayersLogin.fxml",400,300);
     }
 }

@@ -11,7 +11,7 @@
             fx:controller="com.example.chessgame.Controllers.PlayersLoginController">
     <ImageView fitHeight="224.0" fitWidth="237.0" layoutX="193.0" layoutY="76.0" pickOnBounds="true"
                preserveRatio="true" styleClass="horse">
-        <Image url="@../Images/bgKnight.png"/>
+        <Image url="@../images/bgKnight.png"/>
     </ImageView>
     <Label layoutX="133.0" layoutY="33.0" styleClass="title" text="Chess Game">
         <font>
@@ -22,10 +22,10 @@
     <HBox alignment="CENTER" layoutX="98.0" layoutY="102.0" prefHeight="110.0" prefWidth="201.0">
         <VBox alignment="TOP_CENTER" prefHeight="110.0" prefWidth="52.0">
             <ImageView fitHeight="55.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/whitePawn.png"/>
+                <Image url="@../images/whitePawn.png"/>
             </ImageView>
             <ImageView fitHeight="53.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/blackPawn.png"/>
+                <Image url="@../images/blackPawn.png"/>
             </ImageView>
         </VBox>
         <VBox alignment="CENTER" prefHeight="110.0" prefWidth="148.0" spacing="8.0">
@@ -47,7 +47,7 @@
             </VBox>
         </VBox>
     </HBox>
-    <Button fx:id="OK" layoutX="184.0" layoutY="238.0" mnemonicParsing="false" onAction="#goToMenu" text="OK">
+    <Button fx:id="OK" layoutX="184.0" layoutY="238.0" mnemonicParsing="false" onAction="#goToBoard" text="OK">
         <font>
             <Font name="System Bold" size="12.0"/>
         </font>

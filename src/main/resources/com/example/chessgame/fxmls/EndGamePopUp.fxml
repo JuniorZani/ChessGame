@@ -13,7 +13,7 @@
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.chessgame.Controllers.EndGamePopUpController">
     <ImageView fx:id="image" fitHeight="268.0" fitWidth="350.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../Images/confetties.png"/>
+        <Image url="@../images/confetties.png"/>
     </ImageView>
     <VBox alignment="CENTER" layoutX="19.0" layoutY="20.0" prefHeight="210.0" prefWidth="312.0">
         <VBox alignment="TOP_CENTER" prefHeight="168.0" prefWidth="202.0" spacing="35.0">

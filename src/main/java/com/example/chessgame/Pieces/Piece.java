@@ -1,8 +1,8 @@
 package com.example.chessgame.Pieces;
 
-import com.example.chessgame.ColorType;
-import com.example.chessgame.Coordinates;
-import com.example.chessgame.PieceType;
+import com.example.chessgame.Enums.ColorType;
+import com.example.chessgame.Miscellaneous.Coordinates;
+import com.example.chessgame.Enums.PieceType;
 
 import static com.example.chessgame.Controllers.ChessBoardController.tiles;
 

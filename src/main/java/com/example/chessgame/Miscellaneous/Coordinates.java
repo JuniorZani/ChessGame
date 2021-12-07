@@ -1,4 +1,4 @@
-package com.example.chessgame;
+package com.example.chessgame.Miscellaneous;
 
 public class Coordinates {
     int row, column;

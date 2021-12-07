@@ -1,11 +1,11 @@
-package com.example.chessgame;
+package com.example.chessgame.Miscellaneous;
 
-import com.example.chessgame.Pieces.King;
+import com.example.chessgame.Enums.ColorType;
 import com.example.chessgame.Pieces.Piece;
 
 import java.util.ArrayList;
 
-import static com.example.chessgame.PieceType.*;
+import static com.example.chessgame.Enums.PieceType.*;
 
 public class Player {
     private final String name;

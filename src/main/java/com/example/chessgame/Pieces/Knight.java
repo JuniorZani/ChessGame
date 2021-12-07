@@ -1,7 +1,7 @@
 package com.example.chessgame.Pieces;
 
-import com.example.chessgame.ColorType;
-import com.example.chessgame.PieceType;
+import com.example.chessgame.Enums.ColorType;
+import com.example.chessgame.Enums.PieceType;
 
 
 public class Knight extends Piece{

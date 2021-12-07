@@ -1,4 +1,4 @@
-package com.example.chessgame;
+package com.example.chessgame.Miscellaneous;
 
 import com.example.chessgame.Pieces.Piece;
 
