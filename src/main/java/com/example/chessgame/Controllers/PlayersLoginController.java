@@ -39,5 +39,6 @@ public class PlayersLoginController {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         ChessGameApplication.changeScene(stage,"fxmls/ChessBoard.fxml",950,750);
+
     }
 }

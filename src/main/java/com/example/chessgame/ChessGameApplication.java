@@ -14,9 +14,9 @@ public class ChessGameApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         System.setProperty("prism.lcdtext", "false");
-        FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource("fxmls/PlayersLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChessGameApplication.class.getResource("fxmls/LoadingScreen.fxml"));
         Image Icon = new Image("com/example/chessgame/images/blackRook.png");
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        Scene scene = new Scene(fxmlLoader.load(), 570, 430);
 
         stage.setTitle("Chess Game");
         stage.getIcons().add(Icon);

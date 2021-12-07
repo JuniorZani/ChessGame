@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="430.0" prefWidth="570.0" styleClass="background" stylesheets="@styles/LoadingScreen.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.chessgame.Controllers.LoadingScreenController" onMouseClicked="#loading">
+    <ImageView fitHeight="430.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/loading.png"/>
+    </ImageView>
+    <ProgressBar fx:id="progressBar" layoutX="120.0" layoutY="374.0" prefHeight="23.0" prefWidth="330.0"
+                 progress="0.0"/>
+</AnchorPane>
