@@ -1,7 +1,7 @@
 package com.example.chessgame.Controllers;
 
 
-import com.example.chessgame.ChessGameApplication;
+import static com.example.chessgame.ChessGameApplication.*;
 import com.example.chessgame.Enums.ColorType;
 import com.example.chessgame.Miscellaneous.Player;
 import javafx.event.ActionEvent;
@@ -38,7 +38,6 @@ public class PlayersLoginController {
 
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        ChessGameApplication.changeScene(stage,"fxmls/ChessBoard.fxml",950,750);
-
+        changeScene(stage,"fxmls/ChessBoard.fxml",950,750);
     }
 }
