@@ -1,7 +1,9 @@
 # ChessGame
 A ChessGame (the only one)
 
-<img src="exemplo-image.png" alt="exemplo imagem">
+<img src="BannerChessGame.svg" alt="BannerChessGame">
+
+>Jogo Xadrez desenvolvido em JavaFX
 
 ## 💻 **Pré-requisitos**
 * Máquina que suporte uma IDE compátivel com JavaFX
