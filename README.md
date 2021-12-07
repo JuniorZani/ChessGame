@@ -1,6 +1,5 @@
 # ChessGame
-A ChessGame (the only one)
-
+>A ChessGame (the only one wiss X)
 <img src="BannerChessGame.svg" alt="BannerChessGame">
 
 >Jogo Xadrez desenvolvido em JavaFX
@@ -9,7 +8,7 @@ A ChessGame (the only one)
 * Máquina que suporte uma IDE compátivel com JavaFX
 
 ## 🚀 Instalando ChessGame
-* Realize o download branch principal (Main)
+* Realize o download branch principal (main)
 
 ## 🎮 **Como jogar**
 * Execute o programa
