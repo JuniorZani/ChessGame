@@ -1,5 +1,4 @@
 # ChessGame
->A ChessGame (the only one wiss X)
 <img src="BannerChessGame.svg" alt="BannerChessGame">
 
 >Jogo Xadrez desenvolvido em JavaFX
