@@ -7,7 +7,7 @@
 * Máquina que suporte uma IDE compátivel com JavaFX
 
 ## 🚀 Instalando ChessGame
-* Realize o download da release "Final Version"
+* Realize o download da release "Latest Version"
 
 ## 🎮 **Como jogar**
 * Execute o programa
