@@ -11,8 +11,8 @@
 
 ## 🎮 **Como jogar**
 * Execute o programa
+* Espere o carregamento e clique no botão de confirmar na tela de animação
 * Insira o nome dos jogadores
-* Clique no botão de confrimar na tela de animação
 * Jogue Xadrez!
 * Durante o jogo o jogador pode desistir da partida ou propor empate ao seu adversário clicando em seus respectivos botões
 
