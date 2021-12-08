@@ -1,5 +1,5 @@
-#progressbar{
-    -fx-accent: green;
+#progressBar{
+    -fx-accent: #7B61FF;
 }
 .button{
     -fx-background-color: linear-gradient(to bottom, #7891D2, #50669F);

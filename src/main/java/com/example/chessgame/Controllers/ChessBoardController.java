@@ -64,9 +64,9 @@ public class ChessBoardController {
         currentPlayerName.setText(currentPlayer.getName());
         currentPlayerPiece.setImage(whitePawn);
 
-        //String logName = new SimpleDateFormat("yyyy-MM-dd-HHmmss'.txt'").format(new Date());
-        //gameLog.file = new FileWriter("src/main/resources/com/example/chessgame/logs/" + logName);
-        //gameLog.printFile = new PrintWriter(gameLog.file);
+        String logName = new SimpleDateFormat("yyyy-MM-dd-HHmmss'.txt'").format(new Date());
+        gameLog.file = new FileWriter("src/main/resources/com/example/chessgame/logs/" + logName);
+        gameLog.printFile = new PrintWriter(gameLog.file);
     }
 
 
@@ -207,7 +207,7 @@ public class ChessBoardController {
             if (tiles[sourceRow][sourceColumn].getPieceOnTile().canMove(row, column) && tiles[sourceRow][sourceColumn].getPieceOnTile().canEat(row, column)) {
                 destinationRow = row;
                 destinationColumn = column;
-                //gameLog.saveMove(sourceRow, sourceColumn, destinationRow, destinationColumn, moves);
+                gameLog.saveMove(sourceRow, sourceColumn, destinationRow, destinationColumn, moves);
                 if(currentPlayer.getColor().equals(ColorType.BLACK))
                     moves++;
 
@@ -314,7 +314,7 @@ public class ChessBoardController {
 
     public void endGame(ActionEvent actionEvent) {
         try {
-            //gameLog.file.close();
+            gameLog.file.close();
             popUp("Fim de Jogo", "com/example/chessgame/images/blackRook.png", "fxmls/EndGamePopUp.fxml", 350, 250);
             Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             changeScene(currentStage, "fxmls/PlayersLogin.fxml", 400, 300);
@@ -342,7 +342,7 @@ public class ChessBoardController {
     }
 
     public void backToMenu(ActionEvent actionEvent) throws IOException {
-        //gameLog.file.close();
+        gameLog.file.close();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         ChessGameApplication.changeScene(stage,"fxmls/PlayersLogin.fxml",400,300);
     }
